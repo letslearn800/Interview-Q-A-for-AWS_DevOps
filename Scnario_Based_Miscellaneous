@@ -1,0 +1,256 @@
+## **AWS / DevOps / Cloud Q\&A**
+
+### **1. How to Provision a VPC?**
+
+You can provision a VPC in AWS using:
+
+To provision a VPC from the AWS console, I create a VPC with a CIDR block, then add public and private subnets. Next, 
+I attach an Internet Gateway, create a route table for the public subnet with a 0.0.0.0/0 route, and associate it. If private subnets need internet access,
+I set up a NAT Gateway and private route table. Finally, I verify the routes and subnet associations.”
+* **AWS CLI:**
+
+  ```bash
+  aws ec2 create-vpc --cidr-block 10.0.0.0/16
+  ```
+* **Infrastructure as Code:** Use **CloudFormation** or **Terraform** to define and deploy the VPC programmatically.
+
+---
+
+### **2. What Does an IAM Policy Do?**
+
+IAM (Identity and Access Management) policies define **permissions** for users, groups, and roles.
+
+* Example: Allowing EC2 start/stop or restricting S3 bucket access.
+* Written in **JSON** format.
+* Enforces **least privilege principle**.
+
+---
+
+### **3. How Do You Secure Sensitive Information (API Keys, Passwords) in CI/CD Pipeline in AWS?**
+
+* Use **AWS Secrets Manager** or **SSM Parameter Store** to store credentials securely.
+* Reference secrets via **environment variables** in CodeBuild or Lambda.
+* Restrict access using **IAM Roles**.
+* Never hardcode credentials in code or repository.
+
+---
+
+### **4. Name Some AWS Services That Are Not Region-Specific**
+
+* **IAM**
+* **Route 53**
+* **CloudFront**
+* **WAF & Shield**
+* **Organizations**
+* **Global Accelerator**
+
+---
+
+### **5. Difference Between EC2 and Lambda – When to Use Which**
+
+| **EC2**                                         | **Lambda**                                |
+| ----------------------------------------------- | ----------------------------------------- |
+| Virtual server, full control over OS.           | Serverless, no infrastructure management. |
+| Pay for uptime (per second/hour).               | Pay per request & execution time.         |
+| Good for long-running apps, stateful workloads. | Good for short, event-driven tasks.       |
+
+**Choose EC2:** When you need OS-level control, custom runtime, or long-running processes.
+**Choose Lambda:** When workloads are small, event-driven, and need automatic scaling.
+
+---
+
+### **6. What Happens if CloudFormation Template Has an Error?**
+
+* Stack creation fails and rolls back by default.
+* You get error messages in **CloudFormation Events tab**.
+* **Fix:** Review the template, correct syntax/logic, validate using:
+
+  ```bash
+  aws cloudformation validate-template --template-body file://template.json
+  ```
+
+  Then redeploy.
+
+---
+
+### **7. In a VPC with Private and Public Subnets, Where Should Database Servers Be Launched?**
+
+* **Private Subnets** (no direct Internet access).
+* Improves security as databases should not be publicly accessible.
+* Access allowed via application servers in public subnets.
+
+---
+
+### **8. How Do You Choose the Right Database Service in AWS?**
+
+* **RDS (Relational Database Service):** For structured, relational data (MySQL, PostgreSQL, Oracle, etc.)
+* **Aurora:** High-performance managed relational DB.
+* **DynamoDB:** NoSQL key-value store for high scalability.
+* **Redshift:** Data warehousing & analytics.
+* **Neptune:** Graph database for relationships.
+
+Choose based on data model, latency requirements, scalability, and cost.
+
+---
+
+### **9. Explain the Concept of Auto Scaling in AWS**
+
+Auto Scaling adjusts the number of EC2 instances based on demand:
+
+* **Scale Out:** Add instances when CPU usage is high.
+* **Scale In:** Remove instances when traffic is low.
+* Implemented via **Auto Scaling Groups** + CloudWatch alarms.
+
+---
+
+### **10. How to Vertically Scale an Amazon EC2 Instance**
+
+* Stop the instance.
+* Change instance type (e.g., t3.medium → m5.large).
+* Restart instance.
+  This increases CPU, RAM, and networking capabilities.
+
+---
+
+### **11. Can a Connection Be Made Between a Company's Data Center and AWS?**
+
+Yes, via:
+
+* **VPN Connection** (IPSec) over the Internet.
+* **AWS Direct Connect** – dedicated high-speed connection for low latency.
+
+---
+
+### **12. Explain AWS Services to Manage Cost**
+
+* **Cost Explorer:** Visualize usage and spending.
+* **Budgets:** Set alerts on overspending.
+* **Trusted Advisor:** Provides cost optimization recommendations.
+* **Savings Plans & Reserved Instances:** Save cost for predictable workloads.
+
+---
+
+### **13. Difference Between NAT Gateway and NAT Instance**
+
+| **NAT Gateway**                    | **NAT Instance**                              |
+| ---------------------------------- | --------------------------------------------- |
+| Fully managed by AWS.              | Self-managed EC2 instance.                    |
+| High availability & scalable.      | Single point of failure unless you manage HA. |
+| Higher cost but no admin overhead. | Cheaper but needs manual maintenance.         |
+
+**Choose NAT Gateway** for production, NAT instance for low-cost development setups.
+
+---
+
+### **14. Different Ways to Access AWS Services**
+
+* **Management Console**
+* **AWS CLI**
+* **AWS SDKs**
+* **Infrastructure as Code tools (CloudFormation, Terraform)**
+* **API/REST calls**
+
+---
+
+### **15. Types of Load Balancer and When to Use Them**
+
+* **Application Load Balancer (ALB):** Layer 7, HTTP/HTTPS traffic, path-based routing.
+* **Network Load Balancer (NLB):** Layer 4, TCP/UDP, extreme performance, low latency.
+* **Classic Load Balancer:** Legacy, L4/L7, not recommended for new workloads.
+
+---
+
+### **16. How Do You Allow or Restrict Access to AWS Services?**
+
+* Use **IAM Policies** to grant/deny access.
+* Use **Service Control Policies (SCP)** in Organizations.
+* Resource-based policies (e.g., S3 bucket policies).
+
+---
+
+### **17. Advantages & Disadvantages of AWS RDS vs Self-Managed DB**
+
+**Advantages:**
+
+* Automated backups, patching, monitoring.
+* High availability with Multi-AZ.
+* Easy scaling.
+
+**Disadvantages:**
+
+* Less control over OS/DB fine-tuning.
+* Cost might be higher than EC2 self-managed DB.
+
+---
+
+### **18. Relationship Between Instance and AMI**
+
+* **AMI (Amazon Machine Image):** Blueprint for creating EC2 instances (OS + software).
+* **Instance:** A running virtual server launched from an AMI.
+
+---
+
+### **19. Instance Launch Types**
+
+* **On-Demand:** Pay-as-you-go, flexible.
+* **Reserved Instances:** Cheaper, commit for 1–3 years.
+* **Spot Instances:** Very cheap, can be terminated anytime.
+* **Savings Plan:** Flexible pricing for consistent usage.
+
+---
+
+### **20. Setting Up a CI/CD Pipeline Using CodePipeline + CodeBuild**
+
+1. Create a **CodeCommit/GitHub repository**.
+2. Set up **CodePipeline** to detect changes (webhook).
+3. Add **CodeBuild stage** to build/test code.
+4. Add **Deploy stage** (Elastic Beanstalk, ECS, Lambda).
+5. Test and monitor pipeline execution.
+
+---
+
+### **21. Securing Sensitive Customer Data in RDS**
+
+* Enable **encryption at rest (KMS)**.
+* Enable **encryption in transit (SSL)**.
+* Use **IAM authentication**.
+* Restrict network access using **security groups**.
+* Enable **automated backups** & monitoring.
+
+---
+
+### **22. Steps to Plan and Execute AWS Migration**
+
+1. **Assessment:** Analyze current infra, apps, dependencies.
+2. **Planning:** Choose right AWS services (lift & shift or refactor).
+3. **Proof of Concept:** Test with small workloads.
+4. **Migration:** Use AWS Migration Hub, Database Migration Service (DMS).
+5. **Validation:** Test apps after migration.
+6. **Optimization:** Tune for cost/performance.
+
+---
+
+### **23. How AWS IAM Manages Permissions**
+
+* **Users:** Individual identities.
+* **Groups:** Collection of users with shared permissions.
+* **Roles:** Temporary credentials for services or users.
+* **Policies:** JSON documents defining permissions.
+
+---
+
+### **24. Setting Up Automated Testing in CI/CD Pipeline**
+
+* Add **CodeBuild test stage**.
+* Run unit/integration tests automatically.
+* Fail pipeline if tests fail.
+* Use reports and notifications for visibility.
+
+---
+
+### **25. Rolling Back a Failed Deployment**
+
+* **CodeDeploy/Elastic Beanstalk:** Automatic rollback if health checks fail.
+* **Manual:** Redeploy previous version or restore from AMI/snapshot.
+* **Best Practice:** Always version your builds and keep rollback plan ready.
+
