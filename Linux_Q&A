@@ -1,0 +1,338 @@
+## 🔧 **Linux Basics & Fundamentals**
+
+1. **What is Linux?**
+   Linux is an open-source, Unix-like operating system kernel that forms the basis of distributions like Ubuntu, CentOS, and Amazon Linux.
+
+2. **Difference between Linux and Unix?**
+   Unix is proprietary; Linux is open-source and community-driven. Linux supports multiple hardware architectures and is free.
+
+3. **What are runlevels in Linux?**
+   Runlevels define the state of a machine, like shutdown (0), single-user mode (1), multi-user mode (3), GUI mode (5).
+
+4. **How do you check Linux kernel version?**
+   `uname -r` or `cat /proc/version`
+
+5. **What are environment variables?**
+   Variables that define system behavior, e.g., `PATH`, `HOME`, `USER`.
+
+6. **How do you set a permanent environment variable?**
+   Add `export VAR=value` to `~/.bashrc` or `/etc/profile`.
+
+7. **Difference between soft link and hard link?**
+   Soft link (symlink) is a pointer to a file path; hard link is another reference to the same inode.
+
+8. **What is the default shell in Linux?**
+   Bash (`/bin/bash`), though other shells exist (zsh, sh, ksh).
+
+9. **How to switch between users?**
+   Use `su username` or `sudo -i` to switch to root.
+
+10. **What is the difference between absolute and relative paths?**
+    Absolute starts from `/`; relative is based on the current directory.
+
+---
+
+## 📂 **File System & Permissions**
+
+11. **How do you check disk space usage?**
+    `df -h`
+
+12. **How do you check directory size?**
+    `du -sh /path/to/dir`
+
+13. **How to find files containing specific text?**
+    `grep -R "text" /path`
+
+14. **Explain Linux file permissions.**
+    Three types: Read (r), Write (w), Execute (x) for User, Group, Others.
+
+15. **How do you change file permissions?**
+    `chmod 755 file`
+
+16. **How to change file ownership?**
+    `chown user:group file`
+
+17. **What is sticky bit?**
+    Special permission that allows only the owner/root to delete files inside a directory.
+
+18. **Difference between `/etc/passwd` and `/etc/shadow`?**
+    `/etc/passwd` contains user info; `/etc/shadow` contains encrypted passwords.
+
+19. **How to list hidden files?**
+    `ls -la`
+
+20. **What is inode in Linux?**
+    Metadata structure that stores information about files (permissions, owner, size, etc.).
+
+---
+
+## 🔎 **Process & Service Management**
+
+21. **How do you check running processes?**
+    `ps aux` or `top`
+
+22. **How to kill a process by name?**
+    `pkill process_name`
+
+23. **What is the difference between kill and kill -9?**
+    `kill` sends SIGTERM (graceful), `kill -9` sends SIGKILL (forceful).
+
+24. **How do you find process using a port?**
+    `lsof -i :port` or `netstat -tulpn | grep port`
+
+25. **What is a zombie process?**
+    A process that has completed execution but still has an entry in process table.
+
+26. **How to check system uptime?**
+    `uptime`
+
+27. **How do you check memory usage?**
+    `free -h` or `top`
+
+28. **Difference between systemctl and service commands?**
+    `systemctl` is for systemd-based systems; `service` works with SysV init scripts.
+
+29. **How to start and enable a service at boot?**
+    `systemctl start servicename` and `systemctl enable servicename`
+
+30. **How to check logs of a service?**
+    `journalctl -u servicename`
+
+---
+
+## 🌐 **Networking**
+
+31. **How do you check current IP address?**
+    `ip addr show` or `hostname -I`
+
+32. **How do you check open ports?**
+    `ss -tuln` or `netstat -tuln`
+
+33. **How to test network connectivity?**
+    `ping hostname` or `curl -I url`
+
+34. **What is /etc/hosts used for?**
+    Local hostname-to-IP mapping.
+
+35. **What is DNS and how do you check name resolution?**
+    DNS resolves domain names to IPs. Use `nslookup` or `dig`.
+
+36. **How do you flush DNS cache in Linux?**
+    `sudo systemd-resolve --flush-caches` (depends on distro).
+
+37. **How to check routing table?**
+    `ip route show`
+
+38. **What is ifconfig?**
+    Legacy command to configure network interfaces (replaced by `ip` command).
+
+39. **How to block an IP using firewall?**
+    `iptables -A INPUT -s IP -j DROP` or `firewall-cmd --add-rich-rule`
+
+40. **Difference between TCP and UDP?**
+    TCP is connection-oriented, reliable; UDP is connectionless, faster.
+
+---
+
+## 📜 **Logs & Monitoring**
+
+41. **Where are system logs stored?**
+    `/var/log/` directory.
+
+42. **How to check kernel logs?**
+    `dmesg`
+
+43. **How do you follow a log file in real-time?**
+    `tail -f /var/log/file.log`
+
+44. **What is syslog?**
+    Standard for message logging in Unix/Linux systems.
+
+45. **How to check failed login attempts?**
+    `grep "Failed" /var/log/secure` or `/var/log/auth.log`
+
+46. **How to check CPU usage per process?**
+    `top` or `ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%cpu`
+
+47. **How to monitor disk IO?**
+    `iostat` or `iotop`
+
+48. **What is SAR command?**
+    Collects and reports system activity (CPU, memory, IO, etc.).
+
+49. **How to check last reboot time?**
+    `who -b`
+
+50. **How to see who is logged in?**
+    `who` or `w`
+
+---
+
+## 🔑 **User Management & Security**
+
+51. **How to create a new user?**
+    `useradd username`
+
+52. **How to set password for user?**
+    `passwd username`
+
+53. **How to add user to a group?**
+    `usermod -aG groupname username`
+
+54. **Difference between primary group and secondary group?**
+    Primary group is default group for user’s files; secondary are additional groups.
+
+55. **What is sudoers file?**
+    File at `/etc/sudoers` that defines user privileges.
+
+56. **How to lock/unlock user account?**
+    `passwd -l username` and `passwd -u username`
+
+57. **How to switch to root user?**
+    `sudo -i` or `su -`
+
+58. **How to disable root login via SSH?**
+    Edit `/etc/ssh/sshd_config` → `PermitRootLogin no`
+
+59. **How to check user login history?**
+    `last` command.
+
+60. **How to find which users have sudo access?**
+    `getent group sudo` or check `/etc/sudoers`
+
+---
+
+## ⚙️ **Package Management**
+
+61. **How to install software in Debian/Ubuntu?**
+    `apt install package-name`
+
+62. **How to install software in RHEL/CentOS/Amazon Linux?**
+    `yum install package-name` or `dnf install package-name`
+
+63. **How to search for package?**
+    `apt search package` or `yum search package`
+
+64. **How to list installed packages?**
+    `dpkg -l` or `rpm -qa`
+
+65. **How to remove package?**
+    `apt remove package` or `yum remove package`
+
+66. **How to check which package a file belongs to?**
+    `rpm -qf /path/file`
+
+67. **How to update all packages?**
+    `apt update && apt upgrade -y` or `yum update -y`
+
+68. **What is EPEL repository?**
+    Extra Packages for Enterprise Linux – provides additional open-source software.
+
+69. **How to add new repository?**
+    Create `.repo` file in `/etc/yum.repos.d/` or add apt source.
+
+70. **How to check package dependencies?**
+    `apt-cache depends package` or `yum deplist package`
+
+---
+
+## 🐳 **Linux for DevOps (AWS Focused)**
+
+71. **How to check free disk space on EC2 instance?**
+    `df -h`
+
+72. **How to resize EBS volume after expansion?**
+    Use `lsblk` → `growpart` → `resize2fs`
+
+73. **How to check which process consumes high network bandwidth?**
+    `iftop`
+
+74. **How to schedule tasks in Linux?**
+    Using `crontab -e`
+
+75. **What is /etc/fstab?**
+    File that defines disk partitions and mount points.
+
+76. **How to mount a new EBS volume?**
+    `mount /dev/xvdf /mnt`
+
+77. **How to make mount persistent?**
+    Add entry in `/etc/fstab`
+
+78. **How to generate SSH key pair?**
+    `ssh-keygen -t rsa -b 4096`
+
+79. **How to copy SSH key to remote host?**
+    `ssh-copy-id user@host`
+
+80. **How to troubleshoot SSH connection issues?**
+    Check `/var/log/auth.log`, security group, firewall rules, `sshd_config`.
+
+---
+
+## 🧠 **Troubleshooting & Best Practices**
+
+81. **How do you check which process is using swap?**
+    `smem -rs swap`
+
+82. **How to check file descriptor usage?**
+    `lsof | wc -l` and `cat /proc/sys/fs/file-nr`
+
+83. **How to check kernel parameters?**
+    `sysctl -a`
+
+84. **How to change kernel parameter?**
+    Edit `/etc/sysctl.conf` or use `sysctl -w key=value`
+
+85. **How to find large files consuming space?**
+    `find / -type f -size +500M`
+
+86. **How to check SELinux status?**
+    `sestatus`
+
+87. **How to temporarily disable SELinux?**
+    `setenforce 0`
+
+88. **What is /proc directory?**
+    Virtual filesystem containing process and kernel information.
+
+89. **How to check system load average?**
+    `uptime` or `cat /proc/loadavg`
+
+90. **How to check which process opened a file?**
+    `lsof /path/file`
+
+---
+
+## 🧪 **Practical/Scenario Questions**
+
+91. **Disk usage is 100%. How to find culprit?**
+    `du -sh /* | sort -rh | head -10`
+
+92. **CPU spike issue – how do you debug?**
+    `top`, `htop`, `pidstat`, check logs of high-CPU processes.
+
+93. **Memory leak in app – how to confirm?**
+    `free -h`, `top`, `smem`, compare memory usage over time.
+
+94. **SSH connection too slow – steps to fix?**
+    Check DNS resolution, GSSAPI auth, MTU size.
+
+95. **How to recover deleted file?**
+    If still open, `cp /proc/<pid>/fd/<fd> /tmp/recover`. Otherwise, restore from backup.
+
+96. **How to see number of open connections?**
+    `netstat -an | grep ESTABLISHED | wc -l`
+
+97. **How to enable passwordless sudo for user?**
+    Add `username ALL=(ALL) NOPASSWD:ALL` to `/etc/sudoers`
+
+98. **How to create a compressed archive of logs?**
+    `tar -czvf logs.tar.gz /var/log`
+
+99. **How to extract tar.gz file?**
+    `tar -xzvf file.tar.gz`
+
+100. **How do you secure a Linux server?**
+     Disable root login, configure firewall, keep packages updated, enable audit logging, enforce key-based SSH, monitor logs.
+
