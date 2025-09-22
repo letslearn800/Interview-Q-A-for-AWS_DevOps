@@ -1,0 +1,319 @@
+## **DevOps / Cloud / Docker / Kubernetes / Linux Q\&A**
+
+### **1. What is a Bastion Server/Host and its Characteristics?**
+
+A **Bastion host** is a special-purpose server used as a secure entry point into a private network.
+**Characteristics:**
+
+* Acts as a **jump server** to access instances in a private subnet.
+* Has **public IP** and is hardened (minimal services installed).
+* Usually allows **SSH/RDP** only from trusted IPs.
+* Helps improve **security** by limiting direct access to private resources.
+
+---
+
+### **2. Difference between Launch Configuration and Launch Template**
+
+| **Launch Configuration**                           | **Launch Template**                                                           |
+| -------------------------------------------------- | ----------------------------------------------------------------------------- |
+| Older method for creating EC2 Auto Scaling groups. | Newer and more flexible way.                                                  |
+| Immutable – can’t be modified after creation.      | Editable – you can create versions.                                           |
+| Limited features.                                  | Supports advanced options (e.g., mixed instance types, placement strategies). |
+| Legacy – AWS recommends using Launch Templates.    | Recommended for new deployments.                                              |
+
+---
+
+### **3. How to Attach an EBS Volume**
+
+1. Go to **EC2 Console** → Volumes.
+2. Select the volume → Click **Attach Volume**.
+3. Choose the **EC2 instance** → Attach.
+4. SSH into the EC2 instance and mount it:
+
+   ```bash
+   sudo file -s /dev/xvdf
+   sudo mkfs -t ext4 /dev/xvdf
+   sudo mkdir /data
+   sudo mount /dev/xvdf /data
+   ```
+
+---
+
+### **4. What is a VPC Transit Gateway?**
+
+AWS **Transit Gateway** is a hub that connects multiple VPCs and on-premises networks.
+
+* Simplifies **network topology** (no need for complex peering).
+* Scalable and **centralized routing**.
+* Supports **inter-region peering**.
+* Improves **manageability** and reduces costs.
+
+---
+
+### **5. What is EFS and Difference Between EFS & S3**
+
+* **EFS (Elastic File System):** Fully managed **NFS (Network File System)** for Linux instances.
+* **S3 (Simple Storage Service):** Object storage for any data type.
+
+| **EFS**                               | **S3**                                         |
+| ------------------------------------- | ---------------------------------------------- |
+| Mountable like a file system.         | Access via API/CLI/console.                    |
+| Ideal for **shared storage** for EC2. | Ideal for **backup, static files, data lake**. |
+| Low-latency file system.              | High durability object storage.                |
+
+---
+
+### **6. Steps to Copy Data from Local/Parts to S3 Bucket**
+
+1. Install & configure AWS CLI:
+
+   ```bash
+   aws configure
+   ```
+2. Use `aws s3 cp`:
+
+   ```bash
+   aws s3 cp myfile.txt s3://my-bucket-name/
+   ```
+3. For folders:
+
+   ```bash
+   aws s3 cp myfolder/ s3://my-bucket-name/ --recursive
+   ```
+
+---
+
+### **7. How to Check IP of Docker Container**
+
+```bash
+docker inspect <container_id> | grep "IPAddress"
+```
+
+---
+
+### **8. Difference Between CMD and ENTRYPOINT in Docker**
+
+| **CMD**                                        | **ENTRYPOINT**                                 |
+| ---------------------------------------------- | ---------------------------------------------- |
+| Default command, can be overridden at runtime. | Defines the main executable for the container. |
+| Example: `CMD ["nginx", "-g", "daemon off;"]`  | Example: `ENTRYPOINT ["nginx"]`                |
+| Used for passing arguments.                    | Cannot be easily overridden.                   |
+
+---
+
+### **9. How to Check Docker Networks**
+
+```bash
+docker network ls
+docker network inspect <network_name>
+```
+
+---
+
+### **10. What Are the Deployments in Kubernetes**
+
+* **Deployment** – Manages stateless applications.
+* **StatefulSet** – For stateful apps (databases).
+* **DaemonSet** – Runs a pod on every node.
+* **Job / CronJob** – For batch processing or scheduled tasks.
+
+---
+
+### **11. Reasons for Delay in Pod Creation**
+
+* Image not present locally → needs to be pulled.
+* Node resource (CPU/RAM) constraints.
+* Pending state due to unschedulable node.
+* Network or storage provisioning delay.
+
+---
+
+### **12. Reasons for Pod Latency**
+
+* High resource utilization on the node.
+* Network bottlenecks.
+* Readiness/Liveness probes failing.
+* Large container image size.
+
+---
+
+### **13. How to Access S3 Through EC2**
+
+* Attach an **IAM Role** with S3 access permissions to EC2 instance.
+* Then use AWS CLI or SDK:
+
+  ```bash
+  aws s3 ls
+  ```
+
+---
+
+### **14. Difference Between Public Subnet and Private Subnet**
+
+| **Public Subnet**                   | **Private Subnet**                     |
+| ----------------------------------- | -------------------------------------- |
+| Has **route to Internet Gateway**.  | No direct internet access.             |
+| Instances get **public IP**.        | Instances have only private IPs.       |
+| Used for web servers, bastion host. | Used for databases, internal services. |
+
+---
+
+### **15. How to Optimize Docker Images**
+
+* Use **smaller base images** (e.g., `alpine`).
+* Combine commands into fewer layers.
+* Remove unnecessary files (use `.dockerignore`).
+* Multi-stage builds to keep images minimal.
+
+---
+
+### **16. Difference Between Blue-Green Deployment and Rolling Update**
+
+| **Blue-Green**                                  | **Rolling Update**                  |
+| ----------------------------------------------- | ----------------------------------- |
+| Two environments: Blue (current) & Green (new). | Updates pods gradually, one by one. |
+| Instant switch between environments.            | No downtime but gradual rollout.    |
+| Easier rollback.                                | Rollback takes time.                |
+
+---
+
+### **17. Kubernetes Deployment Types: Rolling, Canary, Blue-Green**
+
+* **Rolling:** Gradually updates pods without downtime.
+* **Canary:** Releases to a small % of users first, then gradually increases.
+* **Blue-Green:** Complete switch from old environment to new.
+
+---
+
+### **18. How to Prevent Out of Memory (OOM) Error**
+
+* Set **resource requests & limits** in Kubernetes.
+* Optimize application memory usage.
+* Use monitoring tools (Prometheus + Grafana) to track usage.
+
+---
+
+### **19. Cross Loop Error in Pod Creation**
+
+This usually means the pod is stuck in **CrashLoopBackOff** state.
+**Causes:**
+
+* Misconfigured container image or command.
+* Application crashes immediately.
+* Missing secrets/configs.
+
+---
+
+### **20. Build Error in Jenkins**
+
+Occurs when Jenkins pipeline fails during build stage.
+**Fix:** Check console logs, missing dependencies, wrong build commands.
+
+---
+
+### **21. What is Git Phase and Git Cool?**
+
+* **Git Phase:** (likely refers to Git workflow stages – commit, push, pull request).
+* **Git Cool:** Probably a typo; might mean `git clone`.
+
+---
+
+### **22. What is Webhook Addition?**
+
+A **Webhook** is a way for one system (like GitHub) to notify Jenkins automatically about events (push/merge).
+
+---
+
+### **23. What is Service in Linux?**
+
+A **service** is a background process managed by `systemd` or `init.d`.
+Example:
+
+```bash
+systemctl status nginx
+```
+
+---
+
+### **24. Partition Format in Linux**
+
+Partitions can be formatted with file systems like **ext4, xfs, btrfs** using:
+
+```bash
+mkfs.ext4 /dev/xvdf
+```
+
+---
+
+### **25. How to Check Partitions in Linux**
+
+```bash
+lsblk
+fdisk -l
+df -h
+```
+
+---
+
+### **26. How to Change Certificate Password in Kubernetes**
+
+* Update the secret storing the certificate:
+
+```bash
+kubectl create secret tls my-tls --cert=cert.pem --key=key.pem -o yaml --dry-run=client | kubectl apply -f -
+```
+
+---
+
+### **27. What is a CronJob?**
+
+A **CronJob** in Kubernetes runs a job on a schedule, like Linux `cron`.
+Example: Run every day at midnight.
+
+---
+
+### **28. How to Check Docker Logs**
+
+```bash
+docker logs <container_id>
+```
+
+---
+
+### **29. How to Check Stream of a File**
+
+```bash
+tail -f /var/log/syslog
+```
+
+---
+
+### **30. Give Permission to User in Jenkins to Check Logs**
+
+* Go to **Manage Jenkins → Manage Users → Configure Role-Based Access**.
+* Assign **Read & View Logs** permissions to the user.
+
+---
+
+### **31. What is Incident Management**
+
+Incident management is the process of **identifying, logging, and resolving issues** quickly to restore service.
+
+---
+
+### **32. How to Fix OS Patching in Linux**
+
+* Update package repository & install updates:
+
+```bash
+sudo apt update && sudo apt upgrade -y
+```
+
+(or `yum update -y` for RHEL/CentOS)
+
+---
+
+### **33. What is Change Management in DevOps**
+
+Change management ensures changes (code, infra, config) are **reviewed, approved, tested, and documented** before going to production.
+
