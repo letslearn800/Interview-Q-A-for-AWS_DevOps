@@ -65,13 +65,40 @@
     **A:** Serverless compute service to run code on demand.
 
 23. **Q:** What is SNS?
-    **A:** Simple Notification Service – sends messages via SMS, email, or push.
+    **A:** AWS SNS, or Amazon Simple Notification Service, is a fully managed messaging service that uses a publish-subscribe (pub-sub) model to deliver messages from publishers (producers) 
+           to multiple subscribers (consumers). It acts as a communication channel, allowing applications and services to send notifications or messages to various endpoints like email, SMS, AWS Lambda functions, 
+           or other AWS services such as AWS SQS. SNS provides scalability, reliability, and a flexible way to decouple application components and react to events
 
 24. **Q:** What is SQS?
-    **A:** Simple Queue Service – message queuing for decoupled systems.
+    **A Amazon SQS (Simple Queue Service) is a service from AWS that lets you send, store, and receive messages between different parts of your applications.
+       It helps you connect and separate different components so they can work independently.
 
+Key points in simple words:
+
+Reliable and secure: Messages are stored safely until they are processed.
+Durable and available: Messages won’t get lost and can be accessed anytime.
+Dead-letter queues: If a message can’t be processed after multiple tries, it goes to a special queue for later inspection.
+Works with any programming language: You can use it with AWS SDK in Java, Python, Node.js, etc.
+Cost tracking: You can add tags to see how much each part of your system costs.
+
+Scenario Example:
+Imagine you have an online shopping app:
+When a customer places an order, the order is sent to an SQS queue.
+Different services like payment processing, inventory update, and shipping read messages from the queue and process them independently.
+This way, if one service is slow or fails, the others can keep working without breaking the app.
 25. **Q:** Difference between SNS and SQS?
     **A:** SNS = pub/sub notifications; SQS = message queue with pull mechanism.
+
+Scenario Example: SNS vs SQS
+SNS Example:
+You want to notify your DevOps team instantly when a Jenkins build fails.
+You publish a message to an SNS topic, and everyone subscribed (email, Slack, SMS) receives it immediately.
+
+SQS Example:
+
+You have an e-commerce app where orders come in constantly.
+Each order is sent to an SQS queue.
+Inventory service, payment service, and shipping service pull messages from the queue independently and process them at their own pace.
 
 ---
 
