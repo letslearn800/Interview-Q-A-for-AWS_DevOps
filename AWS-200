@@ -1,0 +1,624 @@
+1. **Q:** What is AWS?
+   **A:** Amazon Web Services (AWS) is a cloud platform providing on-demand computing, storage, databases, networking, and more.
+
+2. **Q:** What are the key benefits of AWS?
+   **A:** Scalability, flexibility, pay-as-you-go pricing, security, global availability.
+
+3. **Q:** What is EC2?
+   **A:** Elastic Compute Cloud – provides resizable compute capacity in the cloud.
+
+4. **Q:** What is S3?
+   **A:** Simple Storage Service – object storage service to store files, backups, and data.
+
+5. **Q:** Difference between EC2 and Lambda?
+   **A:** EC2 is VM-based; Lambda is serverless and runs code on demand.
+
+6. **Q:** What is VPC?
+   **A:** Virtual Private Cloud – isolated network in AWS for resources.
+
+7. **Q:** What is IAM?
+   **A:** Identity and Access Management – controls user access and permissions.
+
+8. **Q:** Difference between IAM Role and IAM User?
+   **A:** User is for login; role is for services or temporary access.
+
+9. **Q:** What is an AWS Region?
+   **A:** Geographical location with multiple data centers (Availability Zones).
+
+10. **Q:** What is an Availability Zone (AZ)?
+    **A:** Isolated data center within a region.
+
+11. **Q:** What is a Security Group?
+    **A:** Virtual firewall controlling inbound and outbound traffic for EC2.
+
+12. **Q:** Difference between Security Group and NACL?
+    **A:** Security Group = instance-level firewall; NACL = subnet-level firewall.
+
+13. **Q:** What is AWS CLI?
+    **A:** Command-line interface to interact with AWS services.
+
+14. **Q:** What is AWS SDK?
+    **A:** Software Development Kit to access AWS from code (Python, Java, Node.js).
+
+15. **Q:** What is Auto Scaling?
+    **A:** Automatically adjusts EC2 instances based on demand.
+
+16. **Q:** What is ELB?
+    **A:** Elastic Load Balancer – distributes traffic across multiple EC2 instances.
+
+17. **Q:** Difference between ALB and NLB?
+    **A:** ALB = Layer 7, HTTP/HTTPS routing; NLB = Layer 4, TCP routing.
+
+18. **Q:** What is CloudWatch?
+    **A:** Monitoring service for AWS resources and applications.
+
+19. **Q:** What is CloudTrail?
+    **A:** Logs API calls and activities in AWS account for auditing.
+
+20. **Q:** Difference between CloudWatch and CloudTrail?
+    **A:** CloudWatch monitors metrics; CloudTrail logs API calls.
+
+21. **Q:** What is Route 53?
+    **A:** AWS DNS service to route traffic globally.
+
+22. **Q:** What is Lambda?
+    **A:** Serverless compute service to run code on demand.
+
+23. **Q:** What is SNS?
+    **A:** Simple Notification Service – sends messages via SMS, email, or push.
+
+24. **Q:** What is SQS?
+    **A:** Simple Queue Service – message queuing for decoupled systems.
+
+25. **Q:** Difference between SNS and SQS?
+    **A:** SNS = pub/sub notifications; SQS = message queue with pull mechanism.
+
+---
+
+## **2️⃣ Compute Services (25 Q\&A)**
+
+26. **Q:** What instance types are available in EC2?
+    **A:** General Purpose, Compute Optimized, Memory Optimized, GPU, Storage Optimized.
+
+27. **Q:** Difference between On-Demand, Reserved, and Spot instances?
+    **A:** On-Demand = pay per use; Reserved = long-term commitment; Spot = unused capacity at low cost.
+
+28. **Q:** What is an AMI?
+    **A:** Amazon Machine Image – template for launching EC2 instances.
+
+29. **Q:** Difference between stopping and terminating an EC2 instance?
+    **A:** Stop = instance can be restarted; Terminate = instance is deleted.
+
+30. **Q:** What is EC2 user data?
+    **A:** Scripts executed at instance launch for initialization.
+
+31. **Q:** What is placement group?
+    **A:** EC2 instances placement for low-latency or high availability.
+
+32. **Q:** Types of placement groups?
+    **A:** Cluster, Spread, Partition.
+
+33. **Q:** What is Elastic IP?
+    **A:** Static public IPv4 address for EC2 instance.
+
+34. **Q:** What is the difference between public and private IP?
+    **A:** Public IP is internet accessible; private IP is internal to VPC.
+
+35. **Q:** How to connect to EC2?
+    **A:** Using SSH for Linux or RDP for Windows.
+
+36. **Q:** What is EC2 Auto Scaling Launch Configuration?
+    **A:** Template to define instance type, AMI, and key pair.
+
+37. **Q:** What is AWS Batch?
+    **A:** Fully managed service to run batch computing jobs.
+
+38. **Q:** Difference between Lambda and Fargate?
+    **A:** Lambda = event-driven serverless; Fargate = serverless container service.
+
+39. **Q:** What is Elastic Beanstalk?
+    **A:** PaaS service to deploy applications with managed infrastructure.
+
+40. **Q:** How to scale EC2 instances?
+    **A:** Manually or with Auto Scaling Groups.
+
+41. **Q:** What is EC2 instance metadata?
+    **A:** Data about instance accessible internally via HTTP.
+
+42. **Q:** Difference between EC2 and Lightsail?
+    **A:** Lightsail = simplified instance with fixed pricing; EC2 = flexible, scalable.
+
+43. **Q:** What is EC2 Spot Fleet?
+    **A:** Collection of Spot instances to meet capacity demand.
+
+44. **Q:** How to secure EC2 instances?
+    **A:** Security groups, key pairs, IAM roles, patching OS.
+
+45. **Q:** What is EC2 dedicated host?
+    **A:** Physical server dedicated to one customer.
+
+46. **Q:** What is AWS Nitro System?
+    **A:** Hardware and software platform for EC2 security and performance.
+
+47. **Q:** What is instance store?
+    **A:** Temporary storage attached to EC2 instance.
+
+48. **Q:** Difference between instance store and EBS?
+    **A:** Instance store is ephemeral; EBS is persistent storage.
+
+49. **Q:** Can we change instance type after launch?
+    **A:** Yes, by stopping the instance and modifying type.
+
+50. **Q:** How to monitor EC2 health?
+    **A:** CloudWatch metrics, status checks, and alarms.
+
+---
+
+## **3️⃣ Storage Services (25 Q\&A)**
+
+51. **Q:** What is Amazon S3?
+    **A:** Object storage service for storing files, backups, and data.
+
+52. **Q:** S3 storage classes?
+    **A:** Standard, Standard-IA, One Zone-IA, Glacier, Glacier Deep Archive, Intelligent-Tiering.
+
+53. **Q:** Difference between S3 and EBS?
+    **A:** S3 = object storage; EBS = block storage for EC2.
+
+54. **Q:** What is S3 bucket?
+    **A:** Container to store objects in S3.
+
+55. **Q:** What is S3 versioning?
+    **A:** Keeps multiple versions of an object.
+
+56. **Q:** How to secure S3 buckets?
+    **A:** Bucket policies, ACLs, encryption, IAM roles.
+
+57. **Q:** What is S3 lifecycle policy?
+    **A:** Rules to move or delete objects based on age or conditions.
+
+58. **Q:** Difference between S3 Standard and Glacier?
+    **A:** Standard = frequent access; Glacier = archival storage, low cost, slower retrieval.
+
+59. **Q:** What is EBS?
+    **A:** Elastic Block Store – persistent block storage for EC2.
+
+60. **Q:** Types of EBS volumes?
+    **A:** General Purpose (gp2/gp3), Provisioned IOPS (io1/io2), Throughput Optimized (st1), Cold (sc1).
+
+61. **Q:** Difference between EBS and instance store?
+    **A:** EBS = persistent; instance store = ephemeral.
+
+62. **Q:** What is EFS?
+    **A:** Elastic File System – scalable file storage for EC2.
+
+63. **Q:** Difference between EFS and EBS?
+    **A:** EFS = shared, network file system; EBS = attached to single EC2.
+
+64. **Q:** What is S3 Transfer Acceleration?
+    **A:** Faster upload to S3 using Amazon CloudFront edge locations.
+
+65. **Q:** What is AWS Storage Gateway?
+    **A:** Connects on-premise storage with AWS cloud.
+
+66. **Q:** What is Amazon FSx?
+    **A:** Managed Windows or Lustre file systems in AWS.
+
+67. **Q:** How to encrypt S3 data?
+    **A:** SSE-S3, SSE-KMS, SSE-C encryption options.
+
+68. **Q:** What is Cross-Region Replication in S3?
+    **A:** Automatically replicates objects to another region.
+
+69. **Q:** How to host static website in S3?
+    **A:** Enable static website hosting, upload files, configure bucket policy.
+
+70. **Q:** What is AWS Snowball?
+    **A:** Data transfer device to move large datasets to AWS.
+
+71. **Q:** Difference between S3 and Glacier Deep Archive?
+    **A:** Deep Archive = lowest cost, retrieval time up to 12 hours.
+
+72. **Q:** What is lifecycle transition in S3?
+    **A:** Automatically moves objects to lower-cost storage.
+
+73. **Q:** Can EBS snapshots be shared?
+    **A:** Yes, with other AWS accounts.
+
+74. **Q:** What is S3 event notification?
+    **A:** Trigger Lambda, SNS, or SQS when objects change.
+
+75. **Q:** How to version objects in S3?
+    **A:** Enable versioning in bucket properties.
+
+## **4️⃣ AWS Networking (VPC, ELB, Route53, NAT, VPN) 
+
+76. **Q:** What is VPC?
+    **A:** Virtual Private Cloud – isolated network for AWS resources.
+
+77. **Q:** What is a subnet?
+    **A:** A smaller network segment within a VPC.
+
+78. **Q:** Difference between public and private subnet?
+    **A:** Public subnet has Internet access; private does not.
+
+79. **Q:** What is Internet Gateway (IGW)?
+    **A:** Allows instances in public subnet to connect to the internet.
+
+80. **Q:** What is NAT Gateway?
+    **A:** Allows private subnet instances to access the internet.
+
+81. **Q:** Difference between NAT Gateway and NAT Instance?
+    **A:** NAT Gateway = managed, scalable; NAT Instance = self-managed.
+
+82. **Q:** What is Route Table?
+    **A:** Defines traffic routing rules for subnets.
+
+83. **Q:** What is an Elastic IP?
+    **A:** Static public IP for EC2 instance or NAT gateway.
+
+84. **Q:** What is Security Group?
+    **A:** Instance-level virtual firewall.
+
+85. **Q:** What is NACL?
+    **A:** Subnet-level firewall with inbound/outbound rules.
+
+86. **Q:** Difference between SG and NACL?
+    **A:** SG = stateful, instance-level; NACL = stateless, subnet-level.
+
+87. **Q:** What is VPC Peering?
+    **A:** Connects two VPCs privately.
+
+88. **Q:** Difference between VPC Peering and VPN?
+    **A:** Peering = private AWS-to-AWS; VPN = secure encrypted connection over Internet.
+
+89. **Q:** What is AWS Direct Connect?
+    **A:** Dedicated private network connection to AWS.
+
+90. **Q:** What is ELB?
+    **A:** Elastic Load Balancer distributes traffic across instances.
+
+91. **Q:** Types of ELB?
+    **A:** Application Load Balancer (ALB), Network Load Balancer (NLB), Classic Load Balancer (CLB).
+
+92. **Q:** Difference between ALB and NLB?
+    **A:** ALB = Layer 7, HTTP/HTTPS; NLB = Layer 4, TCP.
+
+93. **Q:** What is Route53?
+    **A:** DNS service to route users to AWS resources.
+
+94. **Q:** Difference between public and private hosted zones?
+    **A:** Public = internet DNS; Private = internal DNS in VPC.
+
+95. **Q:** What is health check in Route53?
+    **A:** Monitors endpoint health and routes traffic accordingly.
+
+96. **Q:** What is a VPN in AWS?
+    **A:** Secure connection between on-premise and AWS VPC.
+
+97. **Q:** What is Transit Gateway?
+    **A:** Connects multiple VPCs and on-prem networks centrally.
+
+98. **Q:** What is VPC Endpoint?
+    **A:** Private connection to AWS services without internet.
+
+99. **Q:** Difference between Gateway and Interface VPC Endpoint?
+    **A:** Gateway = S3/DynamoDB; Interface = other AWS services via ENI.
+
+100. **Q:** How to secure VPC traffic?
+     **A:** SGs, NACLs, VPC endpoints, encryption, and logging.
+
+---
+
+## **5️⃣ AWS Database Services (RDS, DynamoDB, Aurora, Redshift) 
+
+101. **Q:** What is RDS?
+     **A:** Managed relational database service.
+
+102. **Q:** Supported RDS engines?
+     **A:** MySQL, PostgreSQL, MariaDB, Oracle, SQL Server, Aurora.
+
+103. **Q:** What is Amazon Aurora?
+     **A:** High-performance, MySQL/PostgreSQL-compatible database.
+
+104. **Q:** Difference between Aurora and RDS?
+     **A:** Aurora = faster, auto-scaling, higher availability; RDS = standard managed DB.
+
+105. **Q:** What is DynamoDB?
+     **A:** Fully managed NoSQL database.
+
+106. **Q:** What is a partition key in DynamoDB?
+     **A:** Key used to distribute data across partitions.
+
+107. **Q:** Difference between primary key and sort key?
+     **A:** Primary = unique identifier; sort key = secondary ordering key.
+
+108. **Q:** What is Redshift?
+     **A:** Data warehouse for large-scale analytics.
+
+109. **Q:** What is DynamoDB Streams?
+     **A:** Captures table changes for triggers or replication.
+
+110. **Q:** Difference between RDS and DynamoDB?
+     **A:** RDS = relational; DynamoDB = NoSQL key-value/document DB.
+
+111. **Q:** How to secure RDS?
+     **A:** VPC isolation, encryption, IAM authentication, security groups.
+
+112. **Q:** What is Multi-AZ deployment?
+     **A:** Synchronous replication to standby in another AZ for high availability.
+
+113. **Q:** What is Read Replica?
+     **A:** Asynchronous copy for scaling read operations.
+
+114. **Q:** Difference between Multi-AZ and Read Replica?
+     **A:** Multi-AZ = HA; Read Replica = read scaling.
+
+115. **Q:** What is DynamoDB TTL?
+     **A:** Time to automatically delete items after expiration.
+
+116. **Q:** What is RDS snapshot?
+     **A:** Backup of RDS instance for recovery.
+
+117. **Q:** Difference between snapshot and backup?
+     **A:** Snapshot = manual; backup = automated.
+
+118. **Q:** What is Redshift Spectrum?
+     **A:** Query S3 data directly without loading into Redshift.
+
+119. **Q:** What is DynamoDB Global Tables?
+     **A:** Multi-region, fully replicated tables.
+
+120. **Q:** What is Aurora Serverless?
+     **A:** Automatically scales Aurora database capacity based on demand.
+
+121. **Q:** Difference between DynamoDB and DocumentDB?
+     **A:** DynamoDB = key-value/NoSQL; DocumentDB = MongoDB-compatible document DB.
+
+122. **Q:** How to monitor RDS performance?
+     **A:** CloudWatch metrics, Enhanced Monitoring, Performance Insights.
+
+123. **Q:** Difference between RDS and Redshift?
+     **A:** RDS = transactional DB; Redshift = analytical DB/data warehouse.
+
+124. **Q:** How to scale DynamoDB?
+     **A:** Auto-scaling read/write capacity or on-demand mode.
+
+125. **Q:** How to enable encryption for RDS?
+     **A:** Use KMS-managed keys at creation or snapshot level.
+
+---
+
+## **6️⃣ AWS Security & IAM 
+
+126. **Q:** What is IAM?
+     **A:** Identity and Access Management – controls AWS user/service access.
+
+127. **Q:** Difference between IAM User, Group, and Role?
+     **A:** User = individual login; Group = collection of users; Role = temporary access.
+
+128. **Q:** What is IAM Policy?
+     **A:** JSON document defining permissions.
+
+129. **Q:** Types of IAM policies?
+     **A:** Managed (AWS or customer) and Inline policies.
+
+130. **Q:** Difference between IAM role and instance profile?
+     **A:** Role = permission set; Instance profile = allows EC2 to assume role.
+
+131. **Q:** What is MFA?
+     **A:** Multi-Factor Authentication for extra login security.
+
+132. **Q:** What is KMS?
+     **A:** Key Management Service for encryption keys.
+
+133. **Q:** How to encrypt S3 using KMS?
+     **A:** Use SSE-KMS while uploading objects.
+
+134. **Q:** What is AWS Secrets Manager?
+     **A:** Service to manage and rotate secrets like passwords and API keys.
+
+135. **Q:** Difference between Secrets Manager and SSM Parameter Store?
+     **A:** Secrets Manager = rotation and lifecycle; Parameter Store = simple key-value storage.
+
+136. **Q:** What is VPC Flow Logs?
+     **A:** Capture network traffic metadata for monitoring and auditing.
+
+137. **Q:** What is AWS Shield?
+     **A:** DDoS protection service.
+
+138. **Q:** What is AWS WAF?
+     **A:** Web Application Firewall to block malicious web traffic.
+
+139. **Q:** Difference between Shield Standard and Advanced?
+     **A:** Standard = automatic DDoS protection; Advanced = advanced mitigation and cost protection.
+
+140. **Q:** What is CloudHSM?
+     **A:** Hardware-based encryption key management.
+
+141. **Q:** How to enforce IAM best practices?
+     **A:** Least privilege, MFA, strong passwords, role separation.
+
+142. **Q:** What is an access key?
+     **A:** Programmatic credentials for AWS CLI or API.
+
+143. **Q:** Difference between root user and IAM user?
+     **A:** Root = full account access; IAM user = controlled access.
+
+144. **Q:** What is resource-based policy?
+     **A:** Policy attached to resource (e.g., S3 bucket) for access control.
+
+145. **Q:** How to audit AWS account activities?
+     **A:** Use CloudTrail logs and AWS Config.
+
+146. **Q:** What is AWS Config?
+     **A:** Monitors configuration changes and compliance.
+
+147. **Q:** What is GuardDuty?
+     **A:** Threat detection service using machine learning and logs.
+
+148. **Q:** Difference between IAM policy and permission boundary?
+     **A:** Policy = grants permissions; boundary = limits maximum permissions.
+
+149. **Q:** What is AWS Organization?
+     **A:** Centralized management of multiple AWS accounts.
+
+150. **Q:** How to manage cross-account access?
+     **A:** IAM roles with trust policy.
+
+
+## **7️⃣ Serverless & DevOps Tools (Lambda, CloudFormation, CodePipeline, CodeBuild, CloudWatch) 
+151. **Q:** What is AWS Lambda?
+     **A:** Serverless compute service to run code without provisioning servers.
+
+152. **Q:** How do you trigger Lambda functions?
+     **A:** Events from S3, API Gateway, DynamoDB Streams, CloudWatch, or custom triggers.
+
+153. **Q:** What is the maximum execution time of a Lambda function?
+     **A:** 15 minutes per invocation.
+
+154. **Q:** Difference between synchronous and asynchronous Lambda invocation?
+     **A:** Synchronous waits for response; asynchronous runs in background.
+
+155. **Q:** What is Lambda concurrency?
+     **A:** Number of simultaneous executions allowed.
+
+156. **Q:** What is AWS CloudFormation?
+     **A:** Infrastructure-as-Code service to create and manage AWS resources via templates.
+
+157. **Q:** What is a CloudFormation stack?
+     **A:** Collection of AWS resources created and managed as a single unit.
+
+158. **Q:** Difference between CloudFormation template and stack?
+     **A:** Template = blueprint; Stack = deployed resources.
+
+159. **Q:** What is AWS CodePipeline?
+     **A:** Continuous integration/continuous delivery (CI/CD) service for automating deployments.
+
+160. **Q:** What are stages in CodePipeline?
+     **A:** Source, Build, Test, Deploy stages.
+
+161. **Q:** What is AWS CodeBuild?
+     **A:** Fully managed build service to compile code, run tests, and produce artifacts.
+
+162. **Q:** How to trigger CodePipeline automatically?
+     **A:** By integrating with GitHub, CodeCommit, or S3 events.
+
+163. **Q:** What is CodeDeploy?
+     **A:** Service to deploy applications to EC2, Lambda, or on-premises servers.
+
+164. **Q:** Difference between in-place and blue/green deployment in CodeDeploy?
+     **A:** In-place = updates existing instances; Blue/Green = deploys to new instances.
+
+165. **Q:** How to monitor Lambda functions?
+     **A:** CloudWatch logs, metrics, and X-Ray traces.
+
+166. **Q:** What is CloudWatch?
+     **A:** Monitoring service for logs, metrics, and alarms.
+
+167. **Q:** Difference between CloudWatch Logs and Metrics?
+     **A:** Logs = textual event data; Metrics = numeric measurement of resources.
+
+168. **Q:** What are CloudWatch Alarms?
+     **A:** Notifications triggered when metric thresholds are breached.
+
+169. **Q:** What is CloudWatch Events / EventBridge?
+     **A:** Service to detect and respond to system events or schedule tasks.
+
+170. **Q:** How to monitor CodePipeline execution?
+     **A:** CloudWatch metrics and pipeline history in AWS Console.
+
+171. **Q:** Difference between Lambda and Fargate?
+     **A:** Lambda = event-driven serverless; Fargate = serverless containers.
+
+172. **Q:** What is SAM (Serverless Application Model)?
+     **A:** Framework to define and deploy serverless applications using CloudFormation.
+
+173. **Q:** How to handle errors in Lambda?
+     **A:** Retry, DLQ (Dead Letter Queue), or error handling in code.
+
+174. **Q:** What is AWS X-Ray?
+     **A:** Distributed tracing service to debug and analyze applications.
+
+175. **Q:** How to secure serverless applications?
+     **A:** IAM roles, VPC integration, environment variable encryption, and input validation.
+
+---
+
+## **8️⃣ Advanced Services & Monitoring (ECS, EKS, Fargate, SQS, SNS, Step Functions, Trusted Advisor) 
+
+176. **Q:** What is Amazon ECS?
+     **A:** Container orchestration service for Docker containers.
+
+177. **Q:** Difference between ECS and EKS?
+     **A:** ECS = AWS-managed; EKS = Kubernetes-managed service.
+
+178. **Q:** What is Fargate?
+     **A:** Serverless container execution service for ECS/EKS.
+
+179. **Q:** Difference between EC2 launch type and Fargate launch type in ECS?
+     **A:** EC2 = customer-managed instances; Fargate = serverless containers.
+
+180. **Q:** What is Amazon EKS?
+     **A:** Managed Kubernetes service in AWS.
+
+181. **Q:** How to scale ECS services?
+     **A:** Using service Auto Scaling and desired count configuration.
+
+182. **Q:** What is SQS?
+     **A:** Simple Queue Service – message queue for decoupled systems.
+
+183. **Q:** Difference between SQS standard and FIFO queue?
+     **A:** Standard = high throughput, unordered; FIFO = guaranteed order, exactly-once delivery.
+
+184. **Q:** What is SNS?
+     **A:** Simple Notification Service – pub/sub messaging service.
+
+185. **Q:** Difference between SNS and SQS?
+     **A:** SNS = push notifications; SQS = pull-based message queue.
+
+186. **Q:** What is AWS Step Functions?
+     **A:** Serverless orchestration for workflows with multiple AWS services.
+
+187. **Q:** Difference between Step Functions and Lambda chaining?
+     **A:** Step Functions = visual orchestration, retries, error handling; Lambda chaining = simple sequential calls.
+
+188. **Q:** What is CloudWatch Agent?
+     **A:** Software to collect custom metrics and logs from EC2 or on-prem servers.
+
+189. **Q:** What is Trusted Advisor?
+     **A:** Service providing recommendations for cost optimization, security, and performance.
+
+190. **Q:** What are the categories in Trusted Advisor?
+     **A:** Cost optimization, security, fault tolerance, performance, service limits.
+
+191. **Q:** How to monitor ECS containers?
+     **A:** CloudWatch metrics, Container Insights, and CloudTrail logs.
+
+192. **Q:** How to secure ECS/EKS services?
+     **A:** IAM roles, security groups, secrets management, and VPC integration.
+
+193. **Q:** Difference between Task Definition and Service in ECS?
+     **A:** Task Definition = blueprint for containers; Service = ensures desired tasks are running.
+
+194. **Q:** What is CloudWatch Container Insights?
+     **A:** Monitors containerized applications on ECS, EKS, and Fargate.
+
+195. **Q:** How to integrate Lambda with Step Functions?
+     **A:** Step Function state machine invokes Lambda tasks.
+
+196. **Q:** How to monitor SQS queue length?
+     **A:** CloudWatch metric `ApproximateNumberOfMessages`.
+
+197. **Q:** How to trigger Lambda from SQS?
+     **A:** Configure SQS as event source for Lambda.
+
+198. **Q:** Difference between ECS Task and ECS Service?
+     **A:** Task = single container group; Service = manages task scaling and availability.
+
+199. **Q:** How to optimize AWS costs?
+     **A:** Use Reserved/Spot instances, right-size resources, monitor with Trusted Advisor.
+
+200. **Q:** How to ensure high availability in AWS architecture?
+     **A:** Use multiple AZs, Auto Scaling, ELB, multi-region deployments, and backups.
+
