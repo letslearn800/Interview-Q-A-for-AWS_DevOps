@@ -1,0 +1,633 @@
+## **1️⃣ EC2 & Compute Scenarios (25 Q\&A)**
+
+1. **Q:** You have an EC2 instance that runs a critical app. Suddenly, CPU usage spikes to 100% constantly. What will you do?
+   **A:** Check CloudWatch metrics, identify high CPU processes, scale using Auto Scaling, or change instance type.
+
+2. **Q:** You need to run batch jobs that only take a few minutes daily. Which compute service should you use?
+   **A:** Use Lambda (serverless) if execution is under 15 mins, or Spot EC2 for cost efficiency.
+
+3. **Q:** Your EC2 instance stopped responding. How will you troubleshoot?
+   **A:** Check instance status checks, CloudWatch logs, try rebooting, or launch a new instance from the AMI.
+
+4. **Q:** You need high availability across multiple AZs for a web app. How will you design it?
+   **A:** Deploy EC2 instances in multiple AZs behind an Application Load Balancer (ALB) with Auto Scaling.
+
+5. **Q:** Your EC2 instance needs to access S3 securely. How will you configure it?
+   **A:** Attach an IAM role with S3 read/write permissions to the EC2 instance.
+
+6. **Q:** You need to move an EC2 instance to a different instance type. What steps will you take?
+   **A:** Stop the instance, change instance type, and restart it.
+
+7. **Q:** You need temporary access to AWS for automation tasks. How will you provide it?
+   **A:** Use IAM roles or temporary credentials via STS.
+
+8. **Q:** Your EC2 instance requires persistent storage. Which option will you use?
+   **A:** Attach an EBS volume and configure it as needed.
+
+9. **Q:** Your EC2 instance crashed due to disk space issues. How will you fix it?
+   **A:** Expand EBS volume, mount new storage, and clean unnecessary files.
+
+10. **Q:** How will you ensure zero downtime while updating your EC2-based web app?
+    **A:** Use Auto Scaling with rolling updates or blue/green deployment.
+
+11. **Q:** You want cost-effective compute for infrequent workloads. Which EC2 pricing option will you use?
+    **A:** Spot instances or Lambda (if serverless is suitable).
+
+12. **Q:** Your instance is under heavy network load. What can you do?
+    **A:** Use enhanced networking (ENA), scale horizontally, or move to a higher bandwidth instance.
+
+13. **Q:** You want to automatically start/stop EC2 instances to save cost. How?
+    **A:** Use Lambda with CloudWatch Events or AWS Instance Scheduler.
+
+14. **Q:** You need to access EC2 from the internet securely. What do you do?
+    **A:** Assign public IP, configure security group rules, and use key pair for SSH.
+
+15. **Q:** Your EC2 instance is in a private subnet and needs S3 access. How?
+    **A:** Use a NAT gateway or VPC endpoint for S3.
+
+16. **Q:** EC2 instance in Auto Scaling is failing health checks. What will you do?
+    **A:** Check application logs, review security groups, and configure proper health checks.
+
+17. **Q:** You need to run multiple environments (dev/test/prod). How will you separate resources?
+    **A:** Use multiple VPCs or use tags and separate Auto Scaling groups.
+
+18. **Q:** Your instance needs to communicate securely with RDS. How?
+    **A:** Place both in the same VPC/subnet or use security groups to allow traffic.
+
+19. **Q:** You want to backup EC2 volumes regularly. How?
+    **A:** Use automated EBS snapshots via Lambda or AWS Backup.
+
+20. **Q:** EC2 instance is frequently terminated accidentally. How will you prevent it?
+    **A:** Enable termination protection.
+
+21. **Q:** You need a lightweight web server for testing, running 24/7. Which EC2 type?
+    **A:** Use t3.micro or small instance with free tier eligible.
+
+22. **Q:** How will you migrate an on-premise app to EC2 without downtime?
+    **A:** Use AWS Migration Hub or CloudEndure for live migration.
+
+23. **Q:** Your app requires GPU processing. Which EC2 instances will you use?
+    **A:** P-series or G-series GPU instances.
+
+24. **Q:** How to monitor EC2 performance over time?
+    **A:** Use CloudWatch metrics, custom metrics, and alarms.
+
+25. **Q:** Your instance is in an unhealthy AZ. How will you maintain uptime?
+    **A:** Configure Auto Scaling across multiple AZs.
+
+---
+
+## **2️⃣ S3 & Storage Scenarios (25 Q\&A)**
+
+26. **Q:** You need to host a static website. How will you do it?
+    **A:** Use S3 bucket with static website hosting enabled, configure public access, and Route53 for domain.
+
+27. **Q:** You want to reduce storage cost for infrequently accessed files. How?
+    **A:** Use S3 Lifecycle policies to move objects to Standard-IA or Glacier.
+
+28. **Q:** Your S3 bucket is publicly exposed accidentally. How to fix?
+    **A:** Block public access, modify bucket policy, and enable encryption.
+
+29. **Q:** How to prevent data loss in S3?
+    **A:** Enable versioning and cross-region replication.
+
+30. **Q:** You need to store 10TB of logs. Which storage class is best?
+    **A:** S3 Glacier or Deep Archive for archival.
+
+31. **Q:** How to securely share S3 objects with external users?
+    **A:** Generate pre-signed URLs with expiry.
+
+32. **Q:** Your S3 uploads are slow. How to improve?
+    **A:** Enable Transfer Acceleration or use multipart uploads.
+
+33. **Q:** How to monitor access to S3 buckets?
+    **A:** Enable S3 access logs and CloudTrail.
+
+34. **Q:** How to encrypt S3 objects?
+    **A:** Use SSE-S3, SSE-KMS, or SSE-C.
+
+35. **Q:** How to store sensitive data in S3?
+    **A:** Use encryption, restrict IAM permissions, and enable logging.
+
+36. **Q:** Your bucket needs replication across regions. How?
+    **A:** Configure Cross-Region Replication (CRR) with versioning.
+
+37. **Q:** How to host multiple static websites in S3?
+    **A:** Use different buckets with unique domain names or prefixes.
+
+38. **Q:** You need automatic deletion of old logs. How?
+    **A:** Use Lifecycle rules with expiration policy.
+
+39. **Q:** How to integrate S3 with Lambda for processing uploads?
+    **A:** Configure S3 event triggers to invoke Lambda on PUT events.
+
+40. **Q:** Your files are large (>5GB). How to upload?
+    **A:** Use multipart upload.
+
+41. **Q:** You need low-latency access for global users. How?
+    **A:** Use CloudFront CDN in front of S3.
+
+42. **Q:** How to restrict access to S3 objects from specific IPs?
+    **A:** Configure bucket policy with IP conditions.
+
+43. **Q:** How to audit S3 bucket for compliance?
+    **A:** Use CloudTrail, Config rules, and Trusted Advisor checks.
+
+44. **Q:** How to avoid accidental deletion in S3?
+    **A:** Enable MFA delete with versioning.
+
+45. **Q:** How to migrate on-premise files to S3?
+    **A:** Use AWS CLI, AWS DataSync, or Snowball.
+
+46. **Q:** You want event-driven processing for S3 objects. How?
+    **A:** S3 event triggers Lambda or SQS notifications.
+
+47. **Q:** How to optimize cost for frequently changing files?
+    **A:** Keep in S3 Standard, avoid Glacier for active files.
+
+48. **Q:** Your bucket contains sensitive PII data. How to protect at rest and transit?
+    **A:** Enable SSE-KMS and use HTTPS for transfers.
+
+49. **Q:** You need automated backups for S3. How?
+    **A:** Use replication, Lifecycle rules, and versioning.
+
+50. **Q:** How to check which users accessed S3 objects?
+    **A:** Enable CloudTrail and analyze logs.
+
+---
+
+## **3️⃣ VPC & Networking Scenarios (25 Q\&A)**
+
+51. **Q:** You need a private subnet without internet access. How?
+    **A:** Create private subnet, no IGW attached, use NAT for outbound if needed.
+
+52. **Q:** Your EC2 needs internet from a private subnet. How?
+    **A:** Route traffic through NAT Gateway or NAT instance.
+
+53. **Q:** How to connect on-premise data center to AWS securely?
+    **A:** Use VPN or AWS Direct Connect.
+
+54. **Q:** You want to isolate dev and prod networks. How?
+    **A:** Use separate VPCs or subnets with proper route tables and SGs.
+
+55. **Q:** How to route traffic globally with low latency?
+    **A:** Use Route53 with latency-based routing or CloudFront.
+
+56. **Q:** You need to allow only specific IPs to access EC2. How?
+    **A:** Configure Security Group inbound rules.
+
+57. **Q:** You need internal communication between services without public IP. How?
+    **A:** Use private subnets and VPC endpoints.
+
+58. **Q:** You want centralized connectivity for multiple VPCs. How?
+    **A:** Use Transit Gateway.
+
+59. **Q:** How to monitor network traffic in VPC?
+    **A:** Enable VPC Flow Logs.
+
+60. **Q:** Your subnet runs out of IP addresses. How to fix?
+    **A:** Expand CIDR or create a new subnet.
+
+61. **Q:** You want secure access to S3 without internet. How?
+    **A:** Use S3 VPC Endpoint.
+
+62. **Q:** How to design a multi-AZ highly available network?
+    **A:** Deploy subnets in multiple AZs, use ALB, NAT Gateway per AZ.
+
+63. **Q:** Your app is slow for remote users. How to improve?
+    **A:** Use CloudFront CDN, enable caching.
+
+64. **Q:** You need internal DNS resolution across VPCs. How?
+    **A:** Use Route53 Private Hosted Zone with VPC association.
+
+65. **Q:** How to restrict traffic between two subnets?
+    **A:** Use NACLs with deny rules.
+
+66. **Q:** Your NAT instance fails frequently. What to do?
+    **A:** Switch to managed NAT Gateway for HA.
+
+67. **Q:** How to secure VPN connection?
+    **A:** Use IPSec encryption, strong authentication, and monitoring.
+
+68. **Q:** How to connect VPCs in different accounts?
+    **A:** VPC Peering or Transit Gateway with cross-account permissions.
+
+69. **Q:** Your ALB reports unhealthy targets. How?
+    **A:** Check security groups, health check path, instance status.
+
+70. **Q:** How to allow private API access?
+    **A:** Deploy API Gateway in private mode with VPC link.
+
+71. **Q:** You want failover routing between regions. How?
+    **A:** Use Route53 with health checks and failover routing policy.
+
+72. **Q:** How to prevent DDoS attacks on your app?
+    **A:** Use AWS Shield, WAF, and rate limiting.
+
+73. **Q:** Your app requires low latency between EC2 and RDS. How?
+    **A:** Place them in the same AZ/subnet.
+
+74. **Q:** How to monitor NAT Gateway usage?
+    **A:** CloudWatch metrics: bytes in/out, active connections.
+
+75. **Q:** How to manage IP addressing efficiently?
+    **A:** Plan VPC CIDR blocks, subnet segmentation, and IP reservation.
+
+
+## **4️⃣ Database Services Scenarios (25 Q\&A)**
+
+76. **Q:** Your RDS instance is hitting CPU limits during peak hours. How to handle it?
+    **A:** Enable read replicas, scale instance vertically, or enable Auto Scaling if Aurora.
+
+77. **Q:** You want multi-region RDS for high availability. How?
+    **A:** Use Multi-AZ deployment and cross-region read replicas.
+
+78. **Q:** How to recover accidentally deleted RDS data?
+    **A:** Restore from automated backup or snapshot.
+
+79. **Q:** How to encrypt RDS data at rest?
+    **A:** Enable KMS encryption during instance creation.
+
+80. **Q:** You need a NoSQL DB for fast reads/writes. Which AWS service?
+    **A:** DynamoDB.
+
+81. **Q:** How to implement caching for RDS queries?
+    **A:** Use Amazon ElastiCache (Redis or Memcached).
+
+82. **Q:** Your DynamoDB table is throttling requests. How to resolve?
+    **A:** Enable Auto Scaling or switch to on-demand mode.
+
+83. **Q:** How to secure DynamoDB table data?
+    **A:** Enable encryption at rest, use IAM policies, and VPC endpoints.
+
+84. **Q:** You need to archive old RDS data. How?
+    **A:** Export to S3 or use snapshots for long-term storage.
+
+85. **Q:** How to migrate on-premise database to AWS?
+    **A:** Use AWS DMS (Database Migration Service) for live migration.
+
+86. **Q:** Your RDS needs automatic failover. How?
+    **A:** Enable Multi-AZ deployment.
+
+87. **Q:** How to scale DynamoDB for unpredictable traffic?
+    **A:** Enable on-demand mode for automatic scaling.
+
+88. **Q:** Your Redshift cluster runs slow for analytics queries. How?
+    **A:** Analyze query performance, use distribution/sort keys, resize cluster.
+
+89. **Q:** How to back up DynamoDB?
+    **A:** Use on-demand backup or continuous backups with point-in-time recovery.
+
+90. **Q:** You need to encrypt DynamoDB streams. How?
+    **A:** Streams data is automatically encrypted if table is encrypted.
+
+91. **Q:** How to replicate RDS across regions?
+    **A:** Use cross-region read replicas.
+
+92. **Q:** How to handle hot partitions in DynamoDB?
+    **A:** Use better partition key design or sharding strategy.
+
+93. **Q:** You need to analyze RDS performance. How?
+    **A:** Use Performance Insights and Enhanced Monitoring.
+
+94. **Q:** How to implement lifecycle for Redshift snapshots?
+    **A:** Use snapshot retention policy and automated snapshots.
+
+95. **Q:** How to handle failover for multi-region DynamoDB tables?
+    **A:** Use Global Tables for active-active replication.
+
+96. **Q:** You need to migrate MySQL to Aurora. How?
+    **A:** Use snapshot restore or DMS for minimal downtime migration.
+
+97. **Q:** How to monitor DynamoDB latency?
+    **A:** CloudWatch metrics: ConsumedRead/WriteCapacityUnits, Latency.
+
+98. **Q:** Your RDS database needs audit logging. How?
+    **A:** Enable database logging and export logs to CloudWatch.
+
+99. **Q:** How to optimize Redshift storage cost?
+    **A:** Use compression, sort keys, and spectrum for external storage.
+
+100. **Q:** How to scale Aurora automatically?
+     **A:** Use Aurora Serverless v2 for auto-scaling compute capacity.
+
+---
+
+## **5️⃣ Serverless & Lambda Scenarios (25 Q\&A)**
+
+101. **Q:** Your Lambda function times out occasionally. How to fix?
+     **A:** Increase timeout, optimize code, or split workload into multiple functions.
+
+102. **Q:** How to handle retries in Lambda?
+     **A:** Use Dead Letter Queue (DLQ) or configure retry attempts in event source.
+
+103. **Q:** How to integrate Lambda with API Gateway?
+     **A:** Set API Gateway as trigger to invoke Lambda on HTTP requests.
+
+104. **Q:** How to secure Lambda environment variables?
+     **A:** Use KMS encryption for sensitive variables.
+
+105. **Q:** Your Lambda needs to access RDS in private subnet. How?
+     **A:** Attach Lambda to VPC with proper subnets and security groups.
+
+106. **Q:** How to debug Lambda failures?
+     **A:** Use CloudWatch logs, X-Ray tracing, and detailed exception handling.
+
+107. **Q:** You want to process S3 uploads with Lambda. How?
+     **A:** Configure S3 event notifications to trigger Lambda on PUT events.
+
+108. **Q:** How to invoke Lambda asynchronously?
+     **A:** Set invocation type to “Event” for async execution.
+
+109. **Q:** Lambda concurrency limit reached. What to do?
+     **A:** Request limit increase or optimize function to reduce concurrent executions.
+
+110. **Q:** Your function processes large files. How?
+     **A:** Use S3 streaming, chunk processing, or Step Functions orchestration.
+
+111. **Q:** How to schedule Lambda jobs?
+     **A:** Use CloudWatch Event Rules (EventBridge) for cron-like triggers.
+
+112. **Q:** How to version Lambda functions?
+     **A:** Enable versions and use aliases for deployment stages.
+
+113. **Q:** How to secure API Gateway + Lambda endpoints?
+     **A:** Enable IAM authorization, Lambda authorizers, or API keys.
+
+114. **Q:** Lambda fails due to VPC ENI limits. How?
+     **A:** Use VPC subnets with enough IPs, reduce function concurrency, or use Lambda outside VPC if possible.
+
+115. **Q:** How to monitor Lambda performance?
+     **A:** CloudWatch metrics: Duration, Invocations, Errors, Throttles.
+
+116. **Q:** How to trigger Lambda from DynamoDB Streams?
+     **A:** Configure DynamoDB Streams as event source for Lambda.
+
+117. **Q:** How to handle cold starts in Lambda?
+     **A:** Use provisioned concurrency for critical functions.
+
+118. **Q:** How to invoke Lambda from SQS FIFO queue?
+     **A:** Configure SQS as Lambda event source with batch size = 1 for ordered processing.
+
+119. **Q:** How to implement retries across multiple Lambda functions?
+     **A:** Use Step Functions with error handling and retry policies.
+
+120. **Q:** How to deploy Lambda code across environments?
+     **A:** Use CI/CD pipeline with CodePipeline or SAM deployment.
+
+121. **Q:** Your function exceeds memory limits. How?
+     **A:** Increase memory allocation or optimize code.
+
+122. **Q:** How to handle sensitive data in Lambda?
+     **A:** Use KMS, Secrets Manager, or environment variable encryption.
+
+123. **Q:** How to trigger Lambda for CloudWatch Alarms?
+     **A:** Configure Alarm actions to invoke Lambda.
+
+124. **Q:** Lambda fails due to IAM permissions. How to fix?
+     **A:** Attach proper IAM role with necessary permissions.
+
+125. **Q:** How to implement multi-step workflows with Lambda?
+     **A:** Use AWS Step Functions to orchestrate multiple Lambdas.
+
+---
+
+## **6️⃣ DevOps, CI/CD & Automation Scenarios (25 Q\&A)**
+
+126. **Q:** Your CodePipeline fails at the build stage. What will you do?
+     **A:** Check CodeBuild logs, fix build errors, update buildspec.yml.
+
+127. **Q:** How to deploy code to multiple regions automatically?
+     **A:** Use CodePipeline with multiple deploy stages or CloudFormation stacks.
+
+128. **Q:** You need zero-downtime deployments. How?
+     **A:** Use blue/green deployments with CodeDeploy or Elastic Beanstalk.
+
+129. **Q:** Your artifact repository is private. How to pull artifacts in CodeBuild?
+     **A:** Configure IAM permissions and authentication (CodeArtifact or S3).
+
+130. **Q:** How to rollback failed deployment?
+     **A:** Use CodeDeploy automatic rollback or CloudFormation stack rollback.
+
+131. **Q:** How to automate EC2 provisioning?
+     **A:** Use CloudFormation templates, Terraform, or CDK scripts.
+
+132. **Q:** How to automate Lambda deployments?
+     **A:** Use SAM, CodePipeline, or Terraform.
+
+133. **Q:** Your build fails due to missing environment variables. How?
+     **A:** Pass variables via CodeBuild environment configuration or Parameter Store.
+
+134. **Q:** How to monitor CI/CD pipelines?
+     **A:** CloudWatch metrics, CodePipeline notifications, SNS alerts.
+
+135. **Q:** You want to enforce code quality in pipeline. How?
+     **A:** Integrate CodeBuild with SonarQube or AWS CodeGuru.
+
+136. **Q:** How to automate S3 bucket creation for new apps?
+     **A:** Use CloudFormation template or Terraform script.
+
+137. **Q:** How to integrate GitHub with CodePipeline?
+     **A:** Use GitHub source action with OAuth token for authentication.
+
+138. **Q:** How to secure pipeline secrets?
+     **A:** Use AWS Secrets Manager or Parameter Store.
+
+139. **Q:** You need to trigger pipeline on Git push. How?
+     **A:** Configure webhook in GitHub or CodeCommit.
+
+140. **Q:** How to manage multiple environments in CI/CD?
+     **A:** Use separate pipelines, stages, or stack parameters.
+
+141. **Q:** How to implement canary deployment?
+     **A:** Use CodeDeploy or CloudFormation with weighted traffic routing.
+
+142. **Q:** Pipeline fails due to IAM issues. How?
+     **A:** Attach proper IAM roles with permissions for CodePipeline, CodeBuild, and CodeDeploy.
+
+143. **Q:** How to automate database changes in pipeline?
+     **A:** Use CloudFormation, Liquibase, or Terraform.
+
+144. **Q:** How to integrate Lambda tests in CI/CD?
+     **A:** Run unit tests in CodeBuild and deploy with CodePipeline.
+
+145. **Q:** How to implement rollback on failed Lambda deployment?
+     **A:** Use Lambda versions and aliases to switch to previous stable version.
+
+146. **Q:** How to monitor deployment status?
+     **A:** Use CloudWatch Events, CodePipeline execution logs, and SNS notifications.
+
+147. **Q:** How to enforce infrastructure compliance?
+     **A:** Use CloudFormation, Config rules, and automated linting in pipeline.
+
+148. **Q:** How to automate cost tagging for resources?
+     **A:** Use tagging policies in CloudFormation, Terraform, or Lambda automation.
+
+149. **Q:** Pipeline must deploy multiple microservices. How?
+     **A:** Use parallel stages in CodePipeline or separate pipelines per service.
+
+150. **Q:** How to implement secret rotation in CI/CD?
+     **A:** Use Secrets Manager with automatic rotation and update pipeline variables.
+
+
+
+## **7️⃣ Security & IAM Scenarios (25 Q\&A)**
+
+151. **Q:** Your AWS account root credentials were accidentally exposed. What will you do?
+     **A:** Rotate credentials immediately, enable MFA, check CloudTrail for suspicious activity, and revoke old keys.
+
+152. **Q:** How to provide temporary access to a contractor?
+     **A:** Create an IAM role with limited permissions and use STS temporary credentials.
+
+153. **Q:** How to enforce least privilege for a team?
+     **A:** Create IAM policies with minimal required permissions, assign via groups/roles.
+
+154. **Q:** Your S3 bucket contains sensitive data. How to secure it?
+     **A:** Enable encryption (SSE-KMS), block public access, and restrict via IAM policy.
+
+155. **Q:** How to monitor unauthorized API calls?
+     **A:** Enable CloudTrail and create CloudWatch Alarms for suspicious activity.
+
+156. **Q:** How to implement MFA for users?
+     **A:** Enable MFA in IAM console and require MFA for privileged actions.
+
+157. **Q:** You need to rotate access keys automatically. How?
+     **A:** Use AWS Secrets Manager with rotation or write Lambda automation.
+
+158. **Q:** How to audit IAM permissions?
+     **A:** Use IAM Access Advisor, AWS Config rules, and CloudTrail logs.
+
+159. **Q:** How to prevent accidental deletion of critical resources?
+     **A:** Enable resource-based policies, MFA delete for S3, and termination protection for EC2.
+
+160. **Q:** How to secure Lambda functions accessing sensitive DB?
+     **A:** Use IAM roles, VPC, Secrets Manager, and environment variable encryption.
+
+161. **Q:** Your IAM user left the company. What steps?
+     **A:** Delete or deactivate the user, revoke keys, rotate roles, audit access.
+
+162. **Q:** How to control cross-account access?
+     **A:** Use IAM roles with trust policies and restrict via policies.
+
+163. **Q:** How to prevent privilege escalation?
+     **A:** Avoid “\*” permissions, separate admin and user roles, monitor with AWS Config.
+
+164. **Q:** How to ensure compliance with security standards?
+     **A:** Use AWS Config, Trusted Advisor, GuardDuty, and Security Hub.
+
+165. **Q:** How to secure API Gateway endpoints?
+     **A:** Use IAM authentication, API keys, Lambda authorizers, or Cognito.
+
+166. **Q:** How to encrypt data at rest and in transit?
+     **A:** Enable KMS encryption for storage and use HTTPS/TLS for transit.
+
+167. **Q:** Your EC2 instance stores secrets. How to secure them?
+     **A:** Store in Secrets Manager or Parameter Store, not local files.
+
+168. **Q:** How to protect against DDoS attacks?
+     **A:** Use AWS Shield, WAF, CloudFront, and rate limiting.
+
+169. **Q:** How to enforce encryption for all S3 buckets?
+     **A:** Use S3 bucket policies and AWS Config rules for compliance.
+
+170. **Q:** Your CloudTrail logs show suspicious activity. What next?
+     **A:** Investigate logs, rotate credentials, notify security team, enable GuardDuty.
+
+171. **Q:** How to prevent IAM key misuse?
+     **A:** Enforce rotation, use MFA, monitor CloudTrail, and limit scope.
+
+172. **Q:** How to secure VPC endpoints?
+     **A:** Use endpoint policies to restrict access to services/resources.
+
+173. **Q:** How to audit resource changes across AWS accounts?
+     **A:** Enable CloudTrail in all accounts and consolidate logs in a central S3 bucket.
+
+174. **Q:** How to implement fine-grained access control in S3?
+     **A:** Use bucket policies, object ACLs, and IAM policies.
+
+175. **Q:** How to ensure least privilege for Lambda accessing multiple services?
+     **A:** Assign only required IAM permissions per function.
+
+---
+
+## **8️⃣ Monitoring & Cost Optimization Scenarios (15 Q\&A)**
+
+176. **Q:** Your EC2 instances are underutilized. How to optimize cost?
+     **A:** Downsize instances, use Auto Scaling, or switch to Spot/Reserved instances.
+
+177. **Q:** How to track AWS spending by project?
+     **A:** Use AWS Cost Explorer and apply cost allocation tags.
+
+178. **Q:** How to monitor unhealthy EC2 instances automatically?
+     **A:** Use CloudWatch alarms on status checks and trigger Auto Scaling/notifications.
+
+179. **Q:** How to detect idle resources?
+     **A:** Use Trusted Advisor checks for idle EC2, EBS, and RDS.
+
+180. **Q:** How to monitor Lambda errors and latency?
+     **A:** Use CloudWatch metrics: Errors, Duration, Throttles.
+
+181. **Q:** Your RDS database shows high latency. How to investigate?
+     **A:** Use Enhanced Monitoring, Performance Insights, and query analysis.
+
+182. **Q:** How to monitor S3 bucket access?
+     **A:** Enable CloudTrail logs and S3 access logs.
+
+183. **Q:** How to get alerts for AWS budget thresholds?
+     **A:** Create AWS Budgets and enable SNS notifications.
+
+184. **Q:** How to monitor containerized apps in ECS/EKS?
+     **A:** Enable CloudWatch Container Insights or Prometheus metrics.
+
+185. **Q:** How to reduce cost for large storage in S3?
+     **A:** Use Lifecycle policies to move old objects to Glacier/Deep Archive.
+
+186. **Q:** How to monitor step-function execution errors?
+     **A:** Use CloudWatch metrics and alarms on failed executions.
+
+187. **Q:** How to detect anomalous network activity?
+     **A:** Use VPC Flow Logs, GuardDuty, and CloudWatch metrics.
+
+188. **Q:** How to identify underutilized RDS instances?
+     **A:** Use CloudWatch CPU/Memory metrics and Trusted Advisor.
+
+189. **Q:** How to optimize EBS costs?
+     **A:** Delete unused volumes, snapshot and archive, and choose proper volume type.
+
+190. **Q:** How to monitor cross-region resources centrally?
+     **A:** Use CloudWatch cross-region dashboards and CloudTrail aggregation.
+
+---
+
+## **9️⃣ Advanced Services Scenarios (25 Q\&A)**
+
+191. **Q:** You need to run containers without managing servers. Which AWS service?
+     **A:** Use ECS or EKS with Fargate launch type.
+
+192. **Q:** Your ECS service fails due to insufficient resources. How?
+     **A:** Adjust CPU/memory in Task Definition or scale the cluster.
+
+193. **Q:** How to deploy Kubernetes workloads in AWS?
+     **A:** Use Amazon EKS with proper node groups and IAM roles.
+
+194. **Q:** How to implement service-to-service communication in ECS?
+     **A:** Use security groups, private subnets, and Service Discovery.
+
+195. **Q:** Your Fargate tasks fail with networking errors. How?
+     **A:** Check VPC/subnet configuration, security groups, and task role permissions.
+
+196. **Q:** How to orchestrate multiple Lambda functions?
+     **A:** Use AWS Step Functions with proper retry/error handling.
+
+197. **Q:** How to send notifications when SQS messages fail?
+     **A:** Configure Dead Letter Queue (DLQ) and CloudWatch alarms.
+
+198. **Q:** How to fan-out messages to multiple consumers?
+     **A:** Use SNS topic subscriptions to SQS or Lambda endpoints.
+
+199. **Q:** Your ECS container needs secrets. How to provide them?
+     **A:** Use Secrets Manager or SSM Parameter Store integration.
+
+200. **Q:** How to scale EKS cluster automatically?
+     **A:** Use Cluster Autoscaler and Horizontal Pod Autoscaler (HPA).
+
