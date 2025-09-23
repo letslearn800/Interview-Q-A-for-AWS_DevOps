@@ -1,0 +1,339 @@
+## 🔹 **Kubernetes Basics**
+
+1. **Q:** What is Kubernetes?
+   **A:** Kubernetes (K8s) is an open-source container orchestration platform that automates deployment, scaling, and management of containers.
+
+2. **Q:** Who developed Kubernetes?
+   **A:** Google (later maintained by CNCF).
+
+3. **Q:** Difference between Docker and Kubernetes?
+   **A:** Docker manages containers; Kubernetes manages container clusters.
+
+4. **Q:** What is a container orchestration platform?
+   **A:** Automates deployment, scaling, and management of containers.
+
+5. **Q:** What is a Pod?
+   **A:** The smallest deployable unit in Kubernetes, which can contain one or more containers.
+
+6. **Q:** What is a Node?
+   **A:** A worker machine (VM or physical) in a Kubernetes cluster.
+
+7. **Q:** What is a Cluster?
+   **A:** A group of nodes managed by Kubernetes master components.
+
+8. **Q:** What is the difference between Cluster and Node?
+   **A:** Cluster is the whole system; nodes are individual machines in it.
+
+9. **Q:** What is the Kubernetes Master?
+   **A:** Control plane that manages the cluster, scheduling, and API requests.
+
+10. **Q:** Components of Kubernetes Control Plane?
+    **A:** API Server, Controller Manager, Scheduler, and etcd.
+
+---
+
+## 🔹 **Pods & Workloads**
+
+11. **Q:** What is a Deployment?
+    **A:** Ensures a desired number of Pod replicas are running.
+
+12. **Q:** Difference between Deployment and ReplicaSet?
+    **A:** Deployment manages ReplicaSets; ReplicaSet ensures Pods run continuously.
+
+13. **Q:** What is a StatefulSet?
+    **A:** Manages stateful applications with stable network identity and storage.
+
+14. **Q:** What is a DaemonSet?
+    **A:** Ensures a copy of a Pod runs on all (or some) nodes.
+
+15. **Q:** What is a Job?
+    **A:** Runs a Pod to completion (batch tasks).
+
+16. **Q:** What is a CronJob?
+    **A:** Runs Jobs on a scheduled time (like cron in Linux).
+
+17. **Q:** What is a PodSpec?
+    **A:** Configuration of containers inside a Pod.
+
+18. **Q:** How do you scale a Deployment?
+    **A:** `kubectl scale deployment myapp --replicas=3`
+
+19. **Q:** How do you get all pods?
+    **A:** `kubectl get pods`
+
+20. **Q:** How do you describe a pod?
+    **A:** `kubectl describe pod podname`
+
+---
+
+## 🔹 **Services & Networking**
+
+21. **Q:** What is a Service?
+    **A:** Exposes Pods internally or externally for network access.
+
+22. **Q:** Types of Services?
+    **A:** ClusterIP, NodePort, LoadBalancer, ExternalName.
+
+23. **Q:** What is ClusterIP?
+    **A:** Default service type; accessible only within the cluster.
+
+24. **Q:** What is NodePort?
+    **A:** Exposes service on a static port of each node.
+
+25. **Q:** What is LoadBalancer service?
+    **A:** Creates cloud load balancer for external traffic.
+
+26. **Q:** What is ExternalName service?
+    **A:** Maps service to an external DNS name.
+
+27. **Q:** What is Kube-proxy?
+    **A:** Maintains network rules to route traffic to Pods.
+
+28. **Q:** What is NetworkPolicy?
+    **A:** Defines rules for pod-to-pod or pod-to-service communication.
+
+29. **Q:** What is Ingress?
+    **A:** Manages external HTTP/S traffic to services.
+
+30. **Q:** Difference between Service and Ingress?
+    **A:** Service exposes Pods; Ingress manages HTTP routing, SSL, and domain rules.
+
+---
+
+## 🔹 **Config & Storage**
+
+31. **Q:** What is ConfigMap?
+    **A:** Stores configuration data for pods (non-secret).
+
+32. **Q:** What is Secret?
+    **A:** Stores sensitive data (passwords, tokens).
+
+33. **Q:** Difference between ConfigMap and Secret?
+    **A:** Secret is encoded (base64) for sensitive information.
+
+34. **Q:** What is a Volume?
+    **A:** Storage used by Pods, can be ephemeral or persistent.
+
+35. **Q:** Types of Volumes?
+    **A:** emptyDir, hostPath, nfs, persistentVolumeClaim, configMap, secret.
+
+36. **Q:** What is PersistentVolume (PV)?
+    **A:** Cluster resource representing physical storage.
+
+37. **Q:** What is PersistentVolumeClaim (PVC)?
+    **A:** Request for storage by a Pod.
+
+38. **Q:** How do you mount a PVC in a Pod?
+    **A:** Use `volume` and `volumeMount` in PodSpec.
+
+39. **Q:** What is StorageClass?
+    **A:** Defines dynamic provisioning of PVs.
+
+40. **Q:** Difference between PV and PVC?
+    **A:** PV is storage; PVC is a Pod’s request for storage.
+
+---
+
+## 🔹 **Kubernetes Commands**
+
+41. **Q:** How to get cluster info?
+    **A:** `kubectl cluster-info`
+
+42. **Q:** How to get nodes?
+    **A:** `kubectl get nodes`
+
+43. **Q:** How to describe a node?
+    **A:** `kubectl describe node nodename`
+
+44. **Q:** How to get deployments?
+    **A:** `kubectl get deployments`
+
+45. **Q:** How to delete a pod?
+    **A:** `kubectl delete pod podname`
+
+46. **Q:** How to view logs of pod?
+    **A:** `kubectl logs podname`
+
+47. **Q:** How to execute a command in pod?
+    **A:** `kubectl exec -it podname -- bash`
+
+48. **Q:** How to apply a YAML file?
+    **A:** `kubectl apply -f file.yml`
+
+49. **Q:** How to delete a resource from YAML?
+    **A:** `kubectl delete -f file.yml`
+
+50. **Q:** How to scale a deployment?
+    **A:** `kubectl scale deployment name --replicas=3`
+
+---
+
+## 🔹 **Kubernetes Architecture**
+
+51. **Q:** Components of Kubernetes Master?
+    **A:** API Server, Controller Manager, Scheduler, etcd.
+
+52. **Q:** Components of Node?
+    **A:** Kubelet, Kube-proxy, container runtime (Docker/CRI-O).
+
+53. **Q:** What is Kubelet?
+    **A:** Agent running on nodes, ensures containers are running.
+
+54. **Q:** What is etcd?
+    **A:** Key-value store for cluster configuration and state.
+
+55. **Q:** What is Scheduler?
+    **A:** Assigns Pods to nodes based on resources.
+
+56. **Q:** What is Controller Manager?
+    **A:** Runs controllers to manage cluster state (replica, job).
+
+57. **Q:** What is Kube-proxy?
+    **A:** Maintains network rules for service routing.
+
+58. **Q:** What is Container Runtime?
+    **A:** Software to run containers (Docker, containerd).
+
+59. **Q:** What is NodePort?
+    **A:** Opens a port on nodes for external access.
+
+60. **Q:** Difference between Control Plane and Worker Node?
+    **A:** Control Plane manages cluster; workers run workloads.
+
+---
+
+## 🔹 **Namespaces & RBAC**
+
+61. **Q:** What is Namespace?
+    **A:** Virtual cluster within a cluster to isolate resources.
+
+62. **Q:** How to create a namespace?
+    **A:** `kubectl create namespace mynamespace`
+
+63. **Q:** How to switch namespace?
+    **A:** `kubectl config set-context --current --namespace=mynamespace`
+
+64. **Q:** How to delete namespace?
+    **A:** `kubectl delete namespace mynamespace`
+
+65. **Q:** What is RBAC?
+    **A:** Role-Based Access Control to manage user permissions.
+
+66. **Q:** What are Roles and ClusterRoles?
+    **A:** Role is namespace-scoped; ClusterRole is cluster-wide.
+
+67. **Q:** What is RoleBinding?
+    **A:** Grants a Role to a user in a namespace.
+
+68. **Q:** What is ClusterRoleBinding?
+    **A:** Grants ClusterRole to user across cluster.
+
+69. **Q:** How to list roles?
+    **A:** `kubectl get roles` or `kubectl get clusterroles`
+
+70. **Q:** How to check user permissions?
+    **A:** `kubectl auth can-i <action> <resource>`
+
+---
+
+## 🔹 **Kubernetes Config & Secrets**
+
+71. **Q:** How to create ConfigMap from file?
+    **A:** `kubectl create configmap myconfig --from-file=config.txt`
+
+72. **Q:** How to create Secret from literal?
+    **A:** `kubectl create secret generic mysecret --from-literal=password=1234`
+
+73. **Q:** How to use Secret in Pod?
+    **A:** Mount as env variable or volume.
+
+74. **Q:** How to update ConfigMap?
+    **A:** `kubectl apply -f configmap.yml`
+
+75. **Q:** How to delete Secret?
+    **A:** `kubectl delete secret mysecret`
+
+76. **Q:** Difference between Secret and ConfigMap?
+    **A:** Secret is sensitive, encoded; ConfigMap is plain text.
+
+77. **Q:** How to decode a Secret?
+    **A:** `echo <value> | base64 --decode`
+
+78. **Q:** Can ConfigMap change Pod dynamically?
+    **A:** No, Pods need restart to get updated ConfigMap.
+
+79. **Q:** Can Secret be updated dynamically?
+    **A:** Same as ConfigMap; requires Pod restart.
+
+80. **Q:** How to list ConfigMaps?
+    **A:** `kubectl get configmaps`
+
+---
+
+## 🔹 **Helm & Package Management**
+
+81. **Q:** What is Helm?
+    **A:** Kubernetes package manager for deploying applications.
+
+82. **Q:** What is Helm Chart?
+    **A:** Collection of YAML templates for Kubernetes resources.
+
+83. **Q:** How to install Helm?
+    **A:** Download Helm binary or use package manager.
+
+84. **Q:** How to add Helm repo?
+    **A:** `helm repo add bitnami https://charts.bitnami.com/bitnami`
+
+85. **Q:** How to install chart?
+    **A:** `helm install myrelease bitnami/nginx`
+
+86. **Q:** How to list Helm releases?
+    **A:** `helm list`
+
+87. **Q:** How to upgrade a release?
+    **A:** `helm upgrade myrelease bitnami/nginx`
+
+88. **Q:** How to uninstall a release?
+    **A:** `helm uninstall myrelease`
+
+89. **Q:** What is values.yaml?
+    **A:** File to define chart configuration values.
+
+90. **Q:** Difference between Helm v2 and v3?
+    **A:** v3 removed Tiller, more secure and simplified.
+
+---
+
+## 🔹 **Troubleshooting & Monitoring**
+
+91. **Q:** How to get pod logs?
+    **A:** `kubectl logs podname`
+
+92. **Q:** How to watch resource changes?
+    **A:** `kubectl get pods -w`
+
+93. **Q:** How to debug a pod?
+    **A:** `kubectl exec -it podname -- bash`
+
+94. **Q:** How to describe a deployment?
+    **A:** `kubectl describe deployment deploymentname`
+
+95. **Q:** How to monitor node resource usage?
+    **A:** `kubectl top nodes`
+
+96. **Q:** How to monitor pod resource usage?
+    **A:** `kubectl top pods`
+
+97. **Q:** How to troubleshoot CrashLoopBackOff?
+    **A:** Check logs, check image, check resource limits.
+
+98. **Q:** How to troubleshoot ImagePullBackOff?
+    **A:** Check image name, registry credentials, network.
+
+99. **Q:** How to check cluster events?
+    **A:** `kubectl get events`
+
+100. **Q:** How to integrate Kubernetes with AWS?
+     **A:** Use EKS (managed K8s), IAM roles, load balancers, and cloud storage.
+
+
