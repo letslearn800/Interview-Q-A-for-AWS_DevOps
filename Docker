@@ -1,0 +1,354 @@
+## 🔹 **Docker Basics**
+
+1. **Q:** What is Docker?
+   **A:** A containerization platform that packages applications with dependencies into lightweight, portable containers.
+
+2. **Q:** Why use Docker?
+   **A:** Faster deployments, consistent environments, scalability, and portability.
+
+3. **Q:** Difference between VM and Docker container?
+   **A:** Containers share host OS kernel, VMs need a full OS for each instance.
+
+4. **Q:** Who developed Docker?
+   **A:** Solomon Hykes (dotCloud, later renamed Docker Inc.).
+
+5. **Q:** What language is Docker written in?
+   **A:** Go (Golang).
+
+6. **Q:** What is a container image?
+   **A:** A read-only template used to create containers.
+
+7. **Q:** What is a container?
+   **A:** A running instance of a Docker image.
+
+8. **Q:** What is Docker Hub?
+   **A:** Official public registry for Docker images.
+
+9. **Q:** What is the default Docker network?
+   **A:** `bridge` network.
+
+10. **Q:** What is Docker Engine?
+    **A:** The core service that runs and manages containers.
+
+---
+
+## 🔹 **Docker Installation & Setup**
+
+11. **Q:** How do you install Docker on Linux?
+    **A:** `sudo apt install docker.io` (Ubuntu) or `yum install docker` (RHEL).
+
+12. **Q:** How do you check Docker version?
+    **A:** `docker --version`
+
+13. **Q:** How do you check if Docker is running?
+    **A:** `systemctl status docker`
+
+14. **Q:** How do you start/stop Docker service?
+    **A:** `sudo systemctl start docker` / `sudo systemctl stop docker`
+
+15. **Q:** How do you run Docker without sudo?
+    **A:** Add user to `docker` group: `sudo usermod -aG docker $USER`
+
+16. **Q:** Where are Docker images stored?
+    **A:** `/var/lib/docker`
+
+17. **Q:** How do you check all containers?
+    **A:** `docker ps -a`
+
+18. **Q:** How do you see all images?
+    **A:** `docker images`
+
+19. **Q:** How do you get container logs?
+    **A:** `docker logs <container_id>`
+
+20. **Q:** How do you get shell access to a container?
+    **A:** `docker exec -it <container_id> bash`
+
+---
+
+## 🔹 **Docker Images**
+
+21. **Q:** How do you pull an image?
+    **A:** `docker pull nginx`
+
+22. **Q:** How do you build an image?
+    **A:** `docker build -t myimage .`
+
+23. **Q:** What is a Dockerfile?
+    **A:** A file containing instructions to build an image.
+
+24. **Q:** Common Dockerfile instructions?
+    **A:** `FROM`, `RUN`, `COPY`, `CMD`, `EXPOSE`, `WORKDIR`
+
+25. **Q:** Example of a simple Dockerfile?
+    **A:**
+
+```dockerfile
+FROM ubuntu
+RUN apt update && apt install -y nginx
+CMD ["nginx", "-g", "daemon off;"]
+```
+
+26. **Q:** How do you tag an image?
+    **A:** `docker tag myimage myrepo/myimage:latest`
+
+27. **Q:** How do you push image to Docker Hub?
+    **A:** `docker push myrepo/myimage:tag`
+
+28. **Q:** How do you remove image?
+    **A:** `docker rmi image_id`
+
+29. **Q:** How do you inspect an image?
+    **A:** `docker inspect image_id`
+
+30. **Q:** How do you list image layers?
+    **A:** `docker history image_id`
+
+---
+
+## 🔹 **Docker Containers**
+
+31. **Q:** How do you run a container?
+    **A:** `docker run -d -p 8080:80 nginx`
+
+32. **Q:** What does `-d` do in `docker run`?
+    **A:** Runs container in detached mode (background).
+
+33. **Q:** What does `-p` do in `docker run`?
+    **A:** Maps container port to host port.
+
+34. **Q:** How do you stop a container?
+    **A:** `docker stop container_id`
+
+35. **Q:** How do you restart a container?
+    **A:** `docker restart container_id`
+
+36. **Q:** How do you remove a container?
+    **A:** `docker rm container_id`
+
+37. **Q:** How do you run container with custom name?
+    **A:** `docker run --name mycontainer nginx`
+
+38. **Q:** How do you attach to running container?
+    **A:** `docker attach container_id`
+
+39. **Q:** How do you run container interactively?
+    **A:** `docker run -it ubuntu bash`
+
+40. **Q:** How do you limit container CPU/memory?
+    **A:** `docker run --cpus=1 --memory=512m nginx`
+
+---
+
+## 🔹 **Docker Networking**
+
+41. **Q:** Types of Docker networks?
+    **A:** bridge, host, none, overlay, macvlan.
+
+42. **Q:** Default network when running a container?
+    **A:** bridge network.
+
+43. **Q:** How to list networks?
+    **A:** `docker network ls`
+
+44. **Q:** How to create a network?
+    **A:** `docker network create mynetwork`
+
+45. **Q:** How to connect container to network?
+    **A:** `docker network connect mynetwork container_id`
+
+46. **Q:** How to disconnect container from network?
+    **A:** `docker network disconnect mynetwork container_id`
+
+47. **Q:** How to inspect a network?
+    **A:** `docker network inspect mynetwork`
+
+48. **Q:** What is host network mode?
+    **A:** Container shares host network stack.
+
+49. **Q:** What is overlay network?
+    **A:** Multi-host network for Swarm.
+
+50. **Q:** What is none network?
+    **A:** Container has no network access.
+
+---
+
+## 🔹 **Docker Volumes & Storage**
+
+51. **Q:** What is a Docker volume?
+    **A:** A persistent storage mechanism for containers.
+
+52. **Q:** How to create a volume?
+    **A:** `docker volume create myvolume`
+
+53. **Q:** How to mount volume in container?
+    **A:** `docker run -v myvolume:/data nginx`
+
+54. **Q:** How to list volumes?
+    **A:** `docker volume ls`
+
+55. **Q:** How to inspect a volume?
+    **A:** `docker volume inspect myvolume`
+
+56. **Q:** How to remove a volume?
+    **A:** `docker volume rm myvolume`
+
+57. **Q:** Difference between bind mount and volume?
+    **A:** Bind mounts map host directory, volumes managed by Docker.
+
+58. **Q:** How to back up volume?
+    **A:** Run a temporary container and `tar` the data.
+
+59. **Q:** Can volumes be shared between containers?
+    **A:** Yes, mount the same volume in multiple containers.
+
+60. **Q:** Do volumes survive container deletion?
+    **A:** Yes, until explicitly removed.
+
+---
+
+## 🔹 **Docker Compose**
+
+61. **Q:** What is Docker Compose?
+    **A:** A tool to define and run multi-container apps using `docker-compose.yml`.
+
+62. **Q:** How to start services with Compose?
+    **A:** `docker-compose up -d`
+
+63. **Q:** How to stop services with Compose?
+    **A:** `docker-compose down`
+
+64. **Q:** Sample docker-compose file?
+    **A:**
+
+```yaml
+version: '3'
+services:
+  web:
+    image: nginx
+    ports:
+      - "8080:80"
+```
+
+65. **Q:** How to scale a service?
+    **A:** `docker-compose up --scale web=3`
+
+66. **Q:** Where is default compose file name?
+    **A:** `docker-compose.yml`
+
+67. **Q:** How to view logs of Compose service?
+    **A:** `docker-compose logs -f`
+
+68. **Q:** How to restart services?
+    **A:** `docker-compose restart`
+
+69. **Q:** How to override docker-compose.yml?
+    **A:** Use `docker-compose.override.yml`
+
+70. **Q:** How to run one-off command with Compose?
+    **A:** `docker-compose run service_name command`
+
+---
+
+## 🔹 **Docker Swarm & Orchestration**
+
+71. **Q:** What is Docker Swarm?
+    **A:** Docker's native container orchestration tool.
+
+72. **Q:** How to init swarm?
+    **A:** `docker swarm init`
+
+73. **Q:** How to join swarm as worker?
+    **A:** Use token from `docker swarm join-token worker`
+
+74. **Q:** How to create a service in swarm?
+    **A:** `docker service create --replicas 3 nginx`
+
+75. **Q:** How to list services?
+    **A:** `docker service ls`
+
+76. **Q:** How to scale swarm service?
+    **A:** `docker service scale myservice=5`
+
+77. **Q:** How to update service image?
+    **A:** `docker service update --image new_image myservice`
+
+78. **Q:** How to check swarm nodes?
+    **A:** `docker node ls`
+
+79. **Q:** How to drain a node?
+    **A:** `docker node update --availability drain node_name`
+
+80. **Q:** Difference between Swarm and Kubernetes?
+    **A:** Swarm is simpler, K8s is more powerful and widely adopted.
+
+---
+
+## 🔹 **Docker Security & Best Practices**
+
+81. **Q:** How to scan image for vulnerabilities?
+    **A:** `docker scan image_name`
+
+82. **Q:** Best practice for Dockerfile?
+    **A:** Use small base images, multi-stage builds, pin versions.
+
+83. **Q:** How to avoid running container as root?
+    **A:** Use `USER` instruction in Dockerfile.
+
+84. **Q:** How to secure secrets in Docker?
+    **A:** Use Docker secrets or environment variables.
+
+85. **Q:** How to limit container privileges?
+    **A:** Use `--cap-drop` or run with `--read-only`.
+
+86. **Q:** How to clean unused containers/images?
+    **A:** `docker system prune`
+
+87. **Q:** How to remove dangling images?
+    **A:** `docker image prune`
+
+88. **Q:** How to monitor Docker containers?
+    **A:** `docker stats`
+
+89. **Q:** How to inspect container resource usage?
+    **A:** `docker inspect container_id`
+
+90. **Q:** What is rootless Docker?
+    **A:** Running Docker daemon as non-root user for better security.
+
+---
+
+## 🔹 **Troubleshooting & Advanced**
+
+91. **Q:** How to debug container issues?
+    **A:** Use `docker logs`, `docker exec`, `docker inspect`.
+
+92. **Q:** How to check container exit code?
+    **A:** `docker inspect container_id --format='{{.State.ExitCode}}'`
+
+93. **Q:** How to commit container changes to image?
+    **A:** `docker commit container_id new_image_name`
+
+94. **Q:** How to pause/unpause a container?
+    **A:** `docker pause container_id` / `docker unpause container_id`
+
+95. **Q:** How to copy files from container?
+    **A:** `docker cp container_id:/path /hostpath`
+
+96. **Q:** How to check events?
+    **A:** `docker events`
+
+97. **Q:** How to run a healthcheck in container?
+    **A:** Add `HEALTHCHECK` in Dockerfile.
+
+98. **Q:** How to set container restart policy?
+    **A:** `--restart=always`
+
+99. **Q:** How to upgrade Docker to latest version?
+    **A:** Use official Docker repo and `apt-get upgrade` or `yum update`.
+
+100. **Q:** How to integrate Docker with Jenkins?
+     **A:** Install Docker plugin, build images, run containers in pipelines.
+
+
