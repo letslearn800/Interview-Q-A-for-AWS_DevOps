@@ -1,0 +1,605 @@
+## **1️⃣ Nexus Repository Manager (25 Q\&A)**
+
+1. **Q:** What is Nexus Repository Manager?
+   **A:** A repository manager to store, manage, and distribute build artifacts (Maven, Docker, npm, etc.).
+
+2. **Q:** Types of Nexus Repositories?
+   **A:** Hosted, Proxy, Group.
+
+3. **Q:** What is a hosted repository?
+   **A:** Stores your internal build artifacts.
+
+4. **Q:** What is a proxy repository?
+   **A:** Caches artifacts from external repositories.
+
+5. **Q:** What is a group repository?
+   **A:** Aggregates multiple repositories under one URL.
+
+6. **Q:** Difference between Nexus OSS and Nexus Pro?
+   **A:** Pro has advanced features like staging, LDAP integration, and security scanning.
+
+7. **Q:** How do you upload an artifact to Nexus?
+   **A:** Using Maven, curl, or Nexus UI.
+
+8. **Q:** How to configure Maven to use Nexus?
+   **A:** Update `settings.xml` with server credentials and repository URL.
+
+9. **Q:** What is a snapshot?
+   **A:** A version under active development, e.g., 1.0-SNAPSHOT.
+
+10. **Q:** What is a release in Nexus?
+    **A:** A stable, immutable artifact version.
+
+11. **Q:** What is repository routing?
+    **A:** Controls which artifacts can be stored or fetched from which repository.
+
+12. **Q:** How do you clean old artifacts?
+    **A:** Using cleanup policies in Nexus.
+
+13. **Q:** How does Nexus integrate with CI/CD?
+    **A:** Jenkins, GitLab, or Bamboo can push build artifacts automatically.
+
+14. **Q:** Can Nexus manage Docker images?
+    **A:** Yes, it can act as a Docker registry.
+
+15. **Q:** How to secure Nexus repository?
+    **A:** User roles, LDAP, SSL, and token-based authentication.
+
+16. **Q:** Difference between local and remote repository?
+    **A:** Local stores internal artifacts; remote proxies external ones.
+
+17. **Q:** What is staging in Nexus?
+    **A:** Process to validate release artifacts before deploying.
+
+18. **Q:** How do you search artifacts in Nexus?
+    **A:** Using Nexus search UI or REST API.
+
+19. **Q:** What is the maximum file size for artifacts in Nexus?
+    **A:** Configurable in Nexus settings.
+
+20. **Q:** Can Nexus host npm packages?
+    **A:** Yes, it supports npm, Maven, NuGet, PyPI, and more.
+
+21. **Q:** How to back up Nexus repository?
+    **A:** Backup the blob store and database.
+
+22. **Q:** How to upgrade Nexus?
+    **A:** Stop service, backup, replace binaries, restart, migrate data.
+
+23. **Q:** How do you monitor Nexus?
+    **A:** Using logs, JVM metrics, and health checks.
+
+24. **Q:** What is a blob store?
+    **A:** Storage location for all artifacts in Nexus.
+
+25. **Q:** Can Nexus integrate with SonarQube?
+    **A:** Indirectly, for managing binaries or analysis reports.
+
+---
+
+## **2️⃣ GitLeaks (25 Q\&A)**
+
+1. **Q:** What is GitLeaks?
+   **A:** A security tool to detect secrets and credentials in Git repos.
+
+2. **Q:** Why use GitLeaks?
+   **A:** To prevent sensitive data leaks in source code.
+
+3. **Q:** How does GitLeaks work?
+   **A:** Scans Git commits, history, and branches using regex patterns.
+
+4. **Q:** How to install GitLeaks?
+   **A:** Using binaries, Go, or Docker.
+
+5. **Q:** Command to scan a repository?
+   **A:** `gitleaks detect --repo=<repo_url>`
+
+6. **Q:** Can GitLeaks scan multiple branches?
+   **A:** Yes, with `--branch` or `--all-branches`.
+
+7. **Q:** Can GitLeaks integrate with CI/CD?
+   **A:** Yes, in Jenkins, GitHub Actions, GitLab pipelines.
+
+8. **Q:** Difference between pre-commit and post-commit scanning?
+   **A:** Pre-commit prevents secrets before commit; post-commit scans repository history.
+
+9. **Q:** Can GitLeaks output in JSON?
+   **A:** Yes, using `--report-format json`.
+
+10. **Q:** How to ignore certain files?
+    **A:** Use `.gitleaksignore` or config file.
+
+11. **Q:** What types of secrets can GitLeaks detect?
+    **A:** AWS keys, passwords, tokens, private keys, etc.
+
+12. **Q:** How to run GitLeaks in Docker?
+
+    ```bash
+    docker run --rm -v $(pwd):/repo zricethezav/gitleaks detect --source=/repo
+    ```
+
+13. **Q:** Can GitLeaks scan GitHub repos directly?
+    **A:** Yes, using `--repo-url`.
+
+14. **Q:** Difference between Gitleaks v7 and v8?
+    **A:** v8 has enhanced detection rules and performance improvements.
+
+15. **Q:** How to update Gitleaks rules?
+    **A:** Update the configuration YAML file.
+
+16. **Q:** How does GitLeaks handle false positives?
+    **A:** Using allowlists in the config.
+
+17. **Q:** Can GitLeaks be automated for PRs?
+    **A:** Yes, via CI/CD pre-merge scans.
+
+18. **Q:** How to generate a report for auditing?
+    **A:** `gitleaks detect --report=gitleaks.json --report-format=json`
+
+19. **Q:** Can GitLeaks detect secrets in commit history?
+    **A:** Yes, by scanning all commits with `--commits=HEAD~10..HEAD`.
+
+20. **Q:** Difference between local and remote scanning?
+    **A:** Local scans cloned repos; remote can scan GitHub/GitLab via API.
+
+21. **Q:** How to fix detected secrets?
+    **A:** Rotate keys and remove from Git history using `git filter-branch` or `BFG Repo-Cleaner`.
+
+22. **Q:** How to configure custom regex patterns?
+    **A:** Use `gitleaks.toml` config file.
+
+23. **Q:** Can GitLeaks integrate with Slack?
+    **A:** Indirectly, by sending JSON reports to webhook.
+
+24. **Q:** How to ignore commits by author?
+    **A:** Use `--author` filter in scan command.
+
+25. **Q:** Can GitLeaks run in Kubernetes?
+    **A:** Yes, via containerized scanning jobs.
+
+Perfect! Let’s continue and complete the **remaining 150 questions** for **SonarQube, Trivy, OWASP Dependency Check, Prometheus, Grafana**, maintaining **simple, human-readable answers**. I’ll structure each tool with \~25-30 Q\&A.
+
+---
+
+## **3️⃣ SonarQube (25 Q\&A)**
+
+1. **Q:** What is SonarQube?
+   **A:** SonarQube is a static code analysis tool to detect code quality issues, bugs, vulnerabilities, and code smells.
+
+2. **Q:** Why use SonarQube?
+   **A:** To improve code quality, security, and maintainability.
+
+3. **Q:** What are SonarQube main features?
+   **A:** Code analysis, Quality Gates, Code coverage metrics, Security vulnerabilities, Reporting.
+
+4. **Q:** What is a Quality Gate?
+   **A:** A set of conditions to decide whether code passes or fails in terms of quality.
+
+5. **Q:** How to integrate SonarQube with Jenkins?
+   **A:** Use SonarQube plugin in Jenkins to run scans during CI pipelines.
+
+6. **Q:** What languages does SonarQube support?
+   **A:** Java, Python, C#, JavaScript, Go, Ruby, PHP, etc.
+
+7. **Q:** What is a SonarQube project?
+   **A:** A codebase or repository that is analyzed in SonarQube.
+
+8. **Q:** What is SonarScanner?
+   **A:** CLI tool to analyze projects and send results to SonarQube server.
+
+9. **Q:** How to run SonarScanner?
+
+   ```bash
+   sonar-scanner -Dsonar.projectKey=myproject -Dsonar.sources=.
+   ```
+
+10. **Q:** Difference between SonarQube Community, Developer, and Enterprise editions?
+    **A:** Community is free, Developer adds branch analysis, Enterprise adds portfolio management and security reports.
+
+11. **Q:** What is a code smell?
+    **A:** Maintainability issue that does not break the code but affects readability or structure.
+
+12. **Q:** Difference between bug and vulnerability in SonarQube?
+    **A:** Bug may break the code; vulnerability is a security risk.
+
+13. **Q:** How to set up Quality Gates in SonarQube?
+    **A:** Via the SonarQube UI → Quality Gates → Create or edit rules.
+
+14. **Q:** Can SonarQube scan multi-language projects?
+    **A:** Yes, it supports multi-language analysis.
+
+15. **Q:** How to ignore certain files or directories?
+    **A:** Configure `sonar.exclusions` in scanner properties.
+
+16. **Q:** How to integrate SonarQube with GitHub?
+    **A:** Use webhook or PR decoration for analysis results on pull requests.
+
+17. **Q:** How to fix security hotspots?
+    **A:** Review and refactor code to follow secure coding practices.
+
+18. **Q:** How to view analysis reports?
+    **A:** Log in to SonarQube web UI and open the project dashboard.
+
+19. **Q:** How to analyze code in pipeline without Jenkins plugin?
+    **A:** Use CLI `sonar-scanner` in pipeline scripts.
+
+20. **Q:** What is a leak period in SonarQube?
+    **A:** The time window to measure new issues for Quality Gate evaluation.
+
+21. **Q:** Can SonarQube detect duplicate code?
+    **A:** Yes, it measures code duplication metrics.
+
+22. **Q:** How to configure database for SonarQube?
+    **A:** Use PostgreSQL, MySQL, or Oracle; configure in `sonar.properties`.
+
+23. **Q:** How to upgrade SonarQube?
+    **A:** Backup database, download new version, migrate data, restart server.
+
+24. **Q:** How to handle large projects in SonarQube?
+    **A:** Use incremental analysis and optimize Quality Gate rules.
+
+25. **Q:** How to integrate SonarQube with AWS CodePipeline?
+    **A:** Use build stage with SonarScanner and push analysis reports to SonarQube server.
+
+---
+
+## **4️⃣ Trivy (25 Q\&A)**
+
+1. **Q:** What is Trivy?
+   **A:** Trivy is an open-source vulnerability scanner for containers, images, filesystems, and repos.
+
+2. **Q:** Why use Trivy?
+   **A:** To detect vulnerabilities and misconfigurations in Docker images or infrastructure code.
+
+3. **Q:** How to install Trivy?
+   **A:** Using Homebrew, apt, yum, or downloading binaries.
+
+4. **Q:** Command to scan Docker image?
+
+   ```bash
+   trivy image myimage:latest
+   ```
+
+5. **Q:** Can Trivy scan file system?
+   **A:** Yes, `trivy fs /path/to/dir`.
+
+6. **Q:** How to scan Git repository with Trivy?
+
+   ```bash
+   trivy repo https://github.com/user/repo
+   ```
+
+7. **Q:** Can Trivy detect OS and language vulnerabilities?
+   **A:** Yes, it scans OS packages and application dependencies.
+
+8. **Q:** How to generate JSON report?
+
+   ```bash
+   trivy image -f json -o report.json myimage:latest
+   ```
+
+9. **Q:** Difference between Trivy and Clair?
+   **A:** Trivy is simpler, faster, and all-in-one scanner; Clair is API-based with database setup.
+
+10. **Q:** How to update Trivy vulnerability database?
+
+    ```bash
+    trivy --update
+    ```
+
+11. **Q:** Can Trivy scan Kubernetes manifests?
+    **A:** Yes, using `trivy k8s` command.
+
+12. **Q:** How to ignore low severity vulnerabilities?
+
+    ```bash
+    trivy image --severity HIGH,CRITICAL myimage:latest
+    ```
+
+13. **Q:** How to integrate Trivy in CI/CD pipeline?
+    **A:** Run Trivy scan in build stage, fail pipeline if critical vulnerabilities found.
+
+14. **Q:** What is Trivy server mode?
+    **A:** Runs Trivy as a long-running API server for faster scans.
+
+15. **Q:** How to scan Docker Compose files?
+    **A:** `trivy compose up`
+
+16. **Q:** Difference between Trivy client and server?
+    **A:** Client scans ad-hoc; server provides API and caching for fast scans.
+
+17. **Q:** Can Trivy scan remote images from registry?
+    **A:** Yes, by specifying image name and registry URL.
+
+18. **Q:** What file formats does Trivy support for reports?
+    **A:** Table, JSON, template, CycloneDX, SARIF.
+
+19. **Q:** How to suppress false positives?
+    **A:** Using ignore file with vulnerability IDs.
+
+20. **Q:** How to scan AWS Lambda deployment packages?
+    **A:** `trivy fs lambda.zip`
+
+21. **Q:** How to integrate Trivy with GitHub Actions?
+    **A:** Add Trivy step in workflow YAML to scan images or repos.
+
+22. **Q:** Can Trivy scan Helm charts?
+    **A:** Yes, `trivy chart mychart`.
+
+23. **Q:** Difference between Trivy and OWASP Dependency Check?
+    **A:** Trivy scans OS, containers, and repos; OWASP focuses on libraries/dependencies.
+
+24. **Q:** How to automate Trivy scans daily?
+    **A:** Use cron job or pipeline schedule.
+
+25. **Q:** How to fail build for critical vulnerabilities?
+
+    ```bash
+    trivy image --exit-code 1 --severity CRITICAL myimage:latest
+    ```
+
+---
+
+## **5️⃣ OWASP Dependency Check (25 Q\&A)**
+
+1. **Q:** What is OWASP Dependency Check?
+   **A:** Tool to detect known vulnerabilities in project dependencies.
+
+2. **Q:** Why use OWASP Dependency Check?
+   **A:** To avoid using libraries with security risks.
+
+3. **Q:** What type of vulnerabilities can it detect?
+   **A:** CVEs in software dependencies.
+
+4. **Q:** Which languages are supported?
+   **A:** Java, .NET, Node.js, Python, Ruby, Go, PHP.
+
+5. **Q:** How to run Dependency Check CLI?
+
+   ```bash
+   dependency-check --project myapp --scan /path/to/project
+   ```
+
+6. **Q:** Can it integrate with Jenkins?
+   **A:** Yes, via plugin or CLI steps.
+
+7. **Q:** How to generate HTML report?
+
+   ```bash
+   dependency-check --format HTML --out ./report
+   ```
+
+8. **Q:** How to integrate with Maven?
+   **A:** Use `dependency-check-maven` plugin in `pom.xml`.
+
+9. **Q:** How to update vulnerability database?
+   **A:** Run `dependency-check.sh --updateonly`
+
+10. **Q:** Can it detect transitive dependencies?
+    **A:** Yes, it scans entire dependency tree.
+
+11. **Q:** How to ignore false positives?
+    **A:** Use suppression XML file.
+
+12. **Q:** Can Dependency Check scan Docker images?
+    **A:** Yes, extract dependencies from image and scan.
+
+13. **Q:** Difference between CLI and plugin usage?
+    **A:** CLI is standalone; plugin integrates with build tools.
+
+14. **Q:** How to integrate with GitHub Actions?
+    **A:** Add `dependency-check-action` in workflow.
+
+15. **Q:** Can it fail build on critical CVEs?
+    **A:** Yes, using `--failOnCVSS` option.
+
+16. **Q:** Difference between NVD and Dependency Check?
+    **A:** NVD is CVE database; Dependency Check scans project against NVD.
+
+17. **Q:** How to configure proxy settings?
+    **A:** Use `--proxyserver` and `--proxyport`.
+
+18. **Q:** Can it scan Node.js `package.json`?
+    **A:** Yes, including `package-lock.json`.
+
+19. **Q:** How to integrate with SonarQube?
+    **A:** Import reports as external issues.
+
+20. **Q:** Difference between OWASP Dependency Check and Trivy?
+    **A:** Dependency Check focuses on libraries; Trivy scans images, OS packages, and repos.
+
+21. **Q:** Can it scan Python `requirements.txt`?
+    **A:** Yes, fully supported.
+
+22. **Q:** How to schedule automated scans?
+    **A:** Use cron jobs or CI/CD pipelines.
+
+23. **Q:** Can it detect license vulnerabilities?
+    **A:** Yes, it supports license reporting.
+
+24. **Q:** How to generate CSV report?
+    **A:** `--format CSV --out ./report.csv`
+
+25. **Q:** How to suppress specific CVEs?
+    **A:** Add them in suppression XML file.
+
+## **6️⃣ Prometheus (30 Q\&A)**
+
+1. **Q:** What is Prometheus?
+   **A:** Open-source monitoring and alerting tool for metrics collection and storage.
+
+2. **Q:** Who developed Prometheus?
+   **A:** Originally by SoundCloud, now part of CNCF.
+
+3. **Q:** Why use Prometheus?
+   **A:** To monitor applications, infrastructure, and trigger alerts on anomalies.
+
+4. **Q:** What type of database does Prometheus use?
+   **A:** Time-series database (TSDB).
+
+5. **Q:** What is a metric in Prometheus?
+   **A:** A numeric value representing a system’s state at a time (e.g., CPU usage).
+
+6. **Q:** What are the types of metrics?
+   **A:** Counter, Gauge, Histogram, Summary.
+
+7. **Q:** Difference between Counter and Gauge?
+   **A:** Counter only increases; Gauge can go up and down.
+
+8. **Q:** What is a Prometheus target?
+   **A:** Endpoint from which Prometheus scrapes metrics (usually `/metrics`).
+
+9. **Q:** How does Prometheus scrape metrics?
+   **A:** Using HTTP requests at specified intervals.
+
+10. **Q:** What is a scrape interval?
+    **A:** Frequency at which Prometheus collects metrics (default 15s).
+
+11. **Q:** What is PromQL?
+    **A:** Prometheus Query Language to query and filter metrics.
+
+12. **Q:** Example of PromQL query for CPU usage?
+
+    ```promql
+    rate(node_cpu_seconds_total{mode="user"}[5m])
+    ```
+
+13. **Q:** What is an alert in Prometheus?
+    **A:** Rule that triggers a notification when conditions are met.
+
+14. **Q:** How to configure alerts?
+    **A:** In `alert.rules` file and send to Alertmanager.
+
+15. **Q:** What is Alertmanager?
+    **A:** Component that handles Prometheus alerts and routes notifications (Slack, email, etc.).
+
+16. **Q:** How to monitor Kubernetes with Prometheus?
+    **A:** Use `kube-state-metrics` and `node-exporter` with Prometheus server.
+
+17. **Q:** What is `node-exporter`?
+    **A:** Agent that exposes node (system) metrics to Prometheus.
+
+18. **Q:** How to view metrics in Prometheus?
+    **A:** Access the web UI at `http://<server>:9090`.
+
+19. **Q:** Can Prometheus store metrics long-term?
+    **A:** Yes, but usually paired with remote storage for long-term retention.
+
+20. **Q:** How to configure Prometheus?
+    **A:** Edit `prometheus.yml` to define scrape configs, jobs, and targets.
+
+21. **Q:** Difference between push and pull model in Prometheus?
+    **A:** Prometheus uses pull; PushGateway allows temporary push for batch jobs.
+
+22. **Q:** Can Prometheus monitor AWS resources?
+    **A:** Yes, using CloudWatch exporters.
+
+23. **Q:** How to secure Prometheus?
+    **A:** Use HTTPS, basic auth, or reverse proxy.
+
+24. **Q:** How to visualize Prometheus metrics?
+    **A:** Using Grafana dashboards or Prometheus UI graphing.
+
+25. **Q:** Difference between Prometheus and Nagios?
+    **A:** Prometheus focuses on metrics and time-series; Nagios is more alert/event-driven.
+
+26. **Q:** How to scale Prometheus?
+    **A:** Use federation or Thanos for large-scale metrics.
+
+27. **Q:** What is Prometheus federation?
+    **A:** Aggregating metrics from multiple Prometheus servers.
+
+28. **Q:** What are labels in Prometheus?
+    **A:** Key-value pairs for metric identification (e.g., `instance="server1"`).
+
+29. **Q:** How to check Prometheus version?
+
+    ```bash
+    prometheus --version
+    ```
+
+30. **Q:** Can Prometheus monitor Docker containers?
+    **A:** Yes, using `cAdvisor` exporter.
+
+---
+
+## **7️⃣ Grafana (25 Q\&A)**
+
+1. **Q:** What is Grafana?
+   **A:** Open-source visualization and dashboard tool for metrics.
+
+2. **Q:** Why use Grafana?
+   **A:** To create dashboards, visualize metrics, and monitor systems effectively.
+
+3. **Q:** Which data sources does Grafana support?
+   **A:** Prometheus, InfluxDB, Loki, MySQL, Elasticsearch, AWS CloudWatch, etc.
+
+4. **Q:** Difference between Grafana and Prometheus?
+   **A:** Prometheus stores metrics; Grafana visualizes them.
+
+5. **Q:** How to install Grafana?
+   **A:** Using Docker, apt/yum, or official binary packages.
+
+6. **Q:** Default Grafana port?
+   **A:** 3000
+
+7. **Q:** How to log in Grafana?
+   **A:** Default username/password is `admin/admin`.
+
+8. **Q:** What is a dashboard in Grafana?
+   **A:** Visual representation of metrics, with panels, graphs, and alerts.
+
+9. **Q:** What is a panel in Grafana?
+   **A:** Individual visualization inside a dashboard (graph, table, gauge).
+
+10. **Q:** How to add a data source?
+    **A:** Grafana UI → Configuration → Data Sources → Add → Select type.
+
+11. **Q:** How to create a graph panel?
+    **A:** Add panel → Select graph → Query metrics → Save.
+
+12. **Q:** Can Grafana send alerts?
+    **A:** Yes, configure alert rules and notification channels (Slack, email).
+
+13. **Q:** How to import dashboards?
+    **A:** Use Grafana dashboard JSON or ID from Grafana community.
+
+14. **Q:** Difference between shared and templated dashboards?
+    **A:** Templated uses variables to dynamically change view; shared is static.
+
+15. **Q:** Can Grafana visualize Prometheus metrics?
+    **A:** Yes, using Prometheus as data source.
+
+16. **Q:** How to create variables in Grafana?
+    **A:** Dashboard → Settings → Variables → Add variable.
+
+17. **Q:** How to secure Grafana?
+    **A:** Enable HTTPS, strong passwords, role-based access.
+
+18. **Q:** Difference between Grafana OSS, Enterprise?
+    **A:** Enterprise adds reporting, SSO, team sync, and plugins.
+
+19. **Q:** How to export dashboards?
+    **A:** Dashboard → Settings → JSON Model → Export.
+
+20. **Q:** How to schedule reporting in Grafana?
+    **A:** Use Grafana Enterprise reporting feature.
+
+21. **Q:** How to integrate Grafana with Slack?
+    **A:** Configure notification channel → Slack → Webhook URL.
+
+22. **Q:** Can Grafana visualize logs?
+    **A:** Yes, using Loki or Elasticsearch as data source.
+
+23. **Q:** How to clone a dashboard?
+    **A:** Dashboard → Settings → Save As.
+
+24. **Q:** How to use Grafana with AWS CloudWatch?
+    **A:** Add CloudWatch as data source, configure metrics and regions.
+
+25. **Q:** Difference between dashboard snapshot and dashboard export?
+    **A:** Snapshot is temporary public view; export is JSON backup.
+
+
+
+
