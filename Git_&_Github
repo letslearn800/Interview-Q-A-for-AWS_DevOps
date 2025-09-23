@@ -1,0 +1,349 @@
+1. **Q:** What is Git?
+   **A:** Git is a distributed version control system that tracks changes in source code and allows multiple developers to collaborate efficiently.
+
+2. **Q:** Difference between Git and GitHub?
+   **A:** Git is a version control tool, whereas GitHub is a cloud-based platform for hosting Git repositories and enabling collaboration.
+
+3. **Q:** What is a repository?
+   **A:** A repository (repo) is a directory where Git stores all files, history, and configuration for a project.
+
+4. **Q:** Difference between local and remote repositories?
+   **A:** Local repo exists on your machine, remote repo is hosted on platforms like GitHub, GitLab, Bitbucket.
+
+5. **Q:** Explain working directory, staging area, and repository.
+   **A:**
+
+   * Working Directory → Your actual project files
+   * Staging Area → Files marked for commit
+   * Repository → Permanent store of committed history
+
+6. **Q:** What is a commit in Git?
+   **A:** A commit is a snapshot of changes in the repository’s history.
+
+7. **Q:** What is the difference between Git and SVN?
+   **A:** Git is distributed, faster, and allows offline commits; SVN is centralized.
+
+8. **Q:** What are branches in Git?
+   **A:** Branches allow parallel development by creating separate lines of development.
+
+9. **Q:** What is a detached HEAD in Git?
+   **A:** It occurs when you check out a commit instead of a branch, meaning HEAD doesn’t point to a branch tip.
+
+10. **Q:** Explain Git lifecycle of a file.
+    **A:** Untracked → Staged → Committed → Modified → Staged (again)
+
+---
+
+## 🔹 **Git Commands**
+
+11. **Q:** Command to check the current branch?
+    **A:** `git branch` or `git status`
+
+12. **Q:** Command to create a new branch?
+    **A:** `git branch <branch-name>`
+
+13. **Q:** Command to switch to another branch?
+    **A:** `git checkout <branch-name>` or `git switch <branch-name>`
+
+14. **Q:** Command to create and switch to a new branch?
+    **A:** `git checkout -b <branch-name>`
+
+15. **Q:** Command to see commit history?
+    **A:** `git log`
+
+16. **Q:** Command to see commit history in one line?
+    **A:** `git log --oneline`
+
+17. **Q:** Command to add files to staging area?
+    **A:** `git add <file>` or `git add .`
+
+18. **Q:** Command to commit changes with a message?
+    **A:** `git commit -m "message"`
+
+19. **Q:** Command to push changes to remote?
+    **A:** `git push origin <branch>`
+
+20. **Q:** Command to pull changes from remote?
+    **A:** `git pull origin <branch>`
+
+---
+
+## 🔹 **Branching & Merging**
+
+21. **Q:** What is the difference between `merge` and `rebase`?
+    **A:**
+
+* Merge → Creates a new merge commit, preserves history
+* Rebase → Rewrites history, making it linear
+
+22. **Q:** How do you resolve merge conflicts?
+    **A:** Manually edit conflicted files, then `git add` and `git commit`.
+
+23. **Q:** What is a fast-forward merge?
+    **A:** When the target branch is directly updated because there are no divergent commits.
+
+24. **Q:** Difference between `git fetch` and `git pull`?
+    **A:**
+
+* `git fetch` → Downloads changes but does not merge
+* `git pull` → Downloads and merges changes
+
+25. **Q:** What is a feature branch workflow?
+    **A:** Each feature is developed in a separate branch, then merged back to main via PR.
+
+26. **Q:** What is Gitflow workflow?
+    **A:** A branching model with `main`, `develop`, `feature/*`, `release/*`, `hotfix/*`.
+
+27. **Q:** How do you delete a branch locally and remotely?
+    **A:**
+
+* Local: `git branch -d <branch>`
+* Remote: `git push origin --delete <branch>`
+
+28. **Q:** What is `git cherry-pick`?
+    **A:** It applies a specific commit from one branch to another.
+
+29. **Q:** What is `git stash`?
+    **A:** Temporarily saves uncommitted changes for later use.
+
+30. **Q:** Command to reapply stashed changes?
+    **A:** `git stash pop`
+
+---
+
+## 🔹 **GitHub & Collaboration**
+
+31. **Q:** What is a Pull Request (PR)?
+    **A:** A request to merge your branch changes into another branch (commonly main).
+
+32. **Q:** What is a Fork in GitHub?
+    **A:** A personal copy of someone else’s repository under your account.
+
+33. **Q:** Difference between Fork and Clone?
+    **A:** Fork creates a copy on GitHub; Clone copies to local machine.
+
+34. **Q:** What is GitHub Actions?
+    **A:** A CI/CD service in GitHub to automate builds, tests, deployments.
+
+35. **Q:** What are GitHub Issues?
+    **A:** They track tasks, bugs, or feature requests for a project.
+
+36. **Q:** What is GitHub Wiki?
+    **A:** A documentation space inside GitHub repo.
+
+37. **Q:** What is Code Review in GitHub?
+    **A:** The process where team members review PRs before merging.
+
+38. **Q:** How do you enforce code reviews before merging?
+    **A:** Use GitHub Branch Protection Rules.
+
+39. **Q:** What is a GitHub release?
+    **A:** A packaged version of software with tags and changelogs.
+
+40. **Q:** What is a GitHub secret?
+    **A:** Securely stored environment variables used in workflows.
+
+---
+
+## 🔹 **Troubleshooting**
+
+41. **Q:** How do you undo the last commit but keep changes?
+    **A:** `git reset --soft HEAD~1`
+
+42. **Q:** How do you undo the last commit and discard changes?
+    **A:** `git reset --hard HEAD~1`
+
+43. **Q:** How do you revert a specific commit?
+    **A:** `git revert <commit-hash>`
+
+44. **Q:** How do you find which commit introduced a bug?
+    **A:** `git bisect start`
+
+45. **Q:** How do you check which branch you are on?
+    **A:** `git branch --show-current`
+
+46. **Q:** How do you check file differences before committing?
+    **A:** `git diff`
+
+47. **Q:** How do you see remote URLs configured?
+    **A:** `git remote -v`
+
+48. **Q:** What is `git reflog` used for?
+    **A:** Shows history of all HEAD movements.
+
+49. **Q:** How do you recover a deleted branch?
+    **A:** Find commit with `git reflog` and recreate branch with `git checkout -b`.
+
+50. **Q:** What if you accidentally commit secrets?
+    **A:** Remove them using `git filter-repo` or `git filter-branch`, then force-push.
+
+---
+
+## 🔹 **Advanced Git Concepts**
+
+51. **Q:** What is a bare repository?
+    **A:** A repo without a working directory, used as a remote repo.
+
+52. **Q:** Difference between `git clone` and `git init`?
+    **A:** `git init` creates a new empty repo; `git clone` copies an existing repo.
+
+53. **Q:** What is a tag in Git?
+    **A:** A pointer to a specific commit, often used for releases.
+
+54. **Q:** Difference between lightweight and annotated tags?
+    **A:** Annotated tags store metadata (message, tagger), lightweight tags do not.
+
+55. **Q:** Command to list all tags?
+    **A:** `git tag`
+
+56. **Q:** How do you create a tag?
+    **A:** `git tag v1.0.0`
+
+57. **Q:** How do you push tags to remote?
+    **A:** `git push origin --tags`
+
+58. **Q:** What is `git submodule`?
+    **A:** A way to include one Git repo as a subdirectory in another.
+
+59. **Q:** What is Git LFS?
+    **A:** Git Large File Storage for handling big files.
+
+60. **Q:** What is a Git hook?
+    **A:** A script that runs automatically on specific Git events.
+
+---
+
+## 🔹 **DevOps & Git Integration**
+
+61. **Q:** How do you integrate Git with Jenkins?
+    **A:** Use Jenkins Git plugin, configure repository URL, and trigger on webhook.
+
+62. **Q:** How do you set up a GitHub webhook?
+    **A:** Go to repo → Settings → Webhooks → Add webhook → Provide Jenkins URL.
+
+63. **Q:** What is CI/CD workflow with Git?
+    **A:** Code → Commit → Push → CI server runs build/test → Deploy.
+
+64. **Q:** How do you enforce code quality in Git workflow?
+    **A:** Use pre-commit hooks or GitHub Actions for linting and testing.
+
+65. **Q:** How do you roll back a bad deployment?
+    **A:** Use Git revert to rollback code, redeploy with stable version.
+
+66. **Q:** How do you manage versioning in Git for production?
+    **A:** Use semantic versioning and tags (v1.0.0, v1.1.0).
+
+67. **Q:** How do you ensure only reviewed code goes to production?
+    **A:** Use protected branches and mandatory PR approvals.
+
+68. **Q:** How do you handle environment-specific configurations?
+    **A:** Store configs in separate branches or use feature flags.
+
+69. **Q:** How do you automate deployments from GitHub?
+    **A:** Use GitHub Actions, AWS CodePipeline, or Jenkins pipeline.
+
+70. **Q:** How do you manage Git credentials securely?
+    **A:** Use SSH keys, credential manager, or GitHub secrets.
+
+---
+
+## 🔹 **Real-Time Scenarios**
+
+71. **Q:** Your team is working on the same branch, how do you avoid conflicts?
+    **A:** Commit frequently, pull often, and rebase regularly.
+
+72. **Q:** What if you pushed to the wrong branch?
+    **A:** Reset branch to previous commit, force-push, or cherry-pick to correct branch.
+
+73. **Q:** How do you handle hotfixes in production?
+    **A:** Create a hotfix branch from main, fix issue, merge and deploy quickly.
+
+74. **Q:** What if your branch has too many unwanted commits?
+    **A:** Use interactive rebase (`git rebase -i`) to squash commits.
+
+75. **Q:** You committed to main accidentally. What now?
+    **A:** Reset commit, create a branch, and push to branch.
+
+76. **Q:** How do you sync your fork with upstream repo?
+    **A:** `git fetch upstream && git merge upstream/main`
+
+77. **Q:** What if you get a detached HEAD error?
+    **A:** Create a branch from detached state using `git checkout -b`.
+
+78. **Q:** How do you troubleshoot Git authentication failures?
+    **A:** Check SSH keys, tokens, and remote URL configuration.
+
+79. **Q:** How do you find which developer broke the code?
+    **A:** Use `git blame <file>` to see who changed specific lines.
+
+80. **Q:** How do you handle large repositories in CI/CD?
+    **A:** Use shallow clones (`git clone --depth 1`) for faster builds.
+
+---
+
+## 🔹 **Best Practices**
+
+81. **Q:** What naming convention do you follow for branches?
+    **A:** `feature/`, `bugfix/`, `hotfix/`, `release/`.
+
+82. **Q:** Why use small frequent commits?
+    **A:** Easier debugging, code review, rollback.
+
+83. **Q:** Why write meaningful commit messages?
+    **A:** Improves collaboration, history tracking, CI/CD automation.
+
+84. **Q:** Why avoid committing secrets?
+    **A:** Security risk, could expose sensitive credentials.
+
+85. **Q:** Why keep `main` branch always stable?
+    **A:** Production deployments depend on it.
+
+86. **Q:** Why use `.gitignore` file?
+    **A:** To avoid committing unnecessary files.
+
+87. **Q:** What is trunk-based development?
+    **A:** Developers merge small changes directly to main frequently.
+
+88. **Q:** What is code freeze?
+    **A:** Temporary halt on merging changes before a release.
+
+89. **Q:** Why use code reviews?
+    **A:** To catch bugs early and maintain code quality.
+
+90. **Q:** Why use tags for release versions?
+    **A:** To identify specific code snapshots used in production.
+
+---
+
+## 🔹 **Miscellaneous**
+
+91. **Q:** What is a SHA in Git?
+    **A:** Unique hash identifier for a commit.
+
+92. **Q:** How do you clone only a single branch?
+    **A:** `git clone -b branch --single-branch <repo-url>`
+
+93. **Q:** What is `git gc`?
+    **A:** Cleans up unnecessary files and optimizes repo.
+
+94. **Q:** What is shallow clone?
+    **A:** Cloning with limited history using `--depth`.
+
+95. **Q:** How do you list untracked files?
+    **A:** `git ls-files --others --exclude-standard`
+
+96. **Q:** What is `git clean`?
+    **A:** Removes untracked files and directories.
+
+97. **Q:** What is `git describe`?
+    **A:** Shows human-readable name for a commit based on nearest tag.
+
+98. **Q:** What is the default branch name in Git?
+    **A:** `main` (previously `master`).
+
+99. **Q:** How do you check the last commit date?
+    **A:** `git log -1 --format=%cd`
+
+100. **Q:** How do you check who merged a commit?
+     **A:** `git log --merges`
+
