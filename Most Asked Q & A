@@ -2,7 +2,20 @@
 ### **IAM, Roles, and Policies**
 
 **Q1:** What is the role of IAM roles and policies?
-**A:** IAM roles are like **temporary identities** for AWS services or users to access resources. Policies define **what permissions** a role or user has. Roles let you **grant access without sharing credentials**.
+An **IAM Role** is a set of permissions that can be **assumed by users, AWS services, or applications** temporarily. It allows access to AWS resources **without using permanent credentials**.
+An **IAM User** is an entity created to **log in to AWS console or use programmatic access**, and it has **long-term credentials**.
+
+**Key Difference:**
+
+* **IAM User:** Permanent identity with credentials.
+* **IAM Role:** Temporary permissions that can be assumed.
+
+**Pro Tip for Interview:**
+You can also give a **scenario**, e.g.:
+
+> “If an EC2 instance needs to access S3, we assign it an **IAM role** instead of embedding AWS keys in the instance, which is more secure.”
+
+
 
 **Q2:** How do you attach policies to IAM users, individually or by group?
 **A:** You can attach policies directly to a user or attach them to a group that the user belongs to. Groups are easier to manage if multiple users need the same permissions.
