@@ -1,0 +1,359 @@
+## 🔹 **Jenkins Basics**
+
+1. **Q:** What is Jenkins?
+   **A:** Jenkins is an open-source automation server used for Continuous Integration (CI) and Continuous Delivery (CD).
+
+2. **Q:** Why do we use Jenkins?
+   **A:** To automate build, test, and deployment processes, improving speed and reliability.
+
+3. **Q:** What is Continuous Integration (CI)?
+   **A:** Frequent merging of code into a shared repo with automated builds and tests.
+
+4. **Q:** What is Continuous Delivery (CD)?
+   **A:** Automatically preparing code for production after passing tests.
+
+5. **Q:** Jenkins is written in which language?
+   **A:** Java.
+
+6. **Q:** Is Jenkins free?
+   **A:** Yes, it’s open-source.
+
+7. **Q:** Difference between Jenkins and GitHub Actions?
+   **A:** Jenkins is self-hosted and highly customizable, GitHub Actions is GitHub’s hosted CI/CD solution.
+
+8. **Q:** What are some Jenkins alternatives?
+   **A:** GitLab CI, CircleCI, Bamboo, TeamCity.
+
+9. **Q:** What is Jenkins Pipeline?
+   **A:** A set of steps defined in code (Jenkinsfile) that automates CI/CD.
+
+10. **Q:** What is a Jenkinsfile?
+    **A:** A text file containing pipeline script (declarative or scripted syntax).
+
+---
+
+## 🔹 **Jenkins Installation & Setup**
+
+11. **Q:** How do you install Jenkins?
+    **A:** Download from jenkins.io and install using package manager (yum, apt) or run with Docker.
+
+12. **Q:** What port does Jenkins run on by default?
+    **A:** Port 8080.
+
+13. **Q:** How do you start Jenkins service?
+    **A:** `systemctl start jenkins`
+
+14. **Q:** How do you check Jenkins status?
+    **A:** `systemctl status jenkins`
+
+15. **Q:** How do you change Jenkins port?
+    **A:** Modify `JENKINS_PORT` in `/etc/default/jenkins` (Linux).
+
+16. **Q:** Where does Jenkins store data?
+    **A:** In `JENKINS_HOME` directory (usually `/var/lib/jenkins`).
+
+17. **Q:** What are Jenkins plugins?
+    **A:** Extensions that add features like Git, Docker, AWS integration.
+
+18. **Q:** How do you install plugins?
+    **A:** Jenkins Dashboard → Manage Jenkins → Manage Plugins.
+
+19. **Q:** How do you update Jenkins?
+    **A:** Through "Manage Jenkins → Upgrade Automatically" or manually download new WAR.
+
+20. **Q:** Can Jenkins run on Docker?
+    **A:** Yes, by using the `jenkins/jenkins` image from Docker Hub.
+
+---
+
+## 🔹 **Jenkins Jobs**
+
+21. **Q:** What is a Jenkins job?
+    **A:** A task Jenkins performs (build, deploy, test).
+
+22. **Q:** Types of Jenkins jobs?
+    **A:** Freestyle, Pipeline, Multi-branch Pipeline, Maven project.
+
+23. **Q:** What is a Freestyle job?
+    **A:** A simple job where you manually configure steps via UI.
+
+24. **Q:** What is a parameterized job?
+    **A:** A job that takes user inputs (parameters) before execution.
+
+25. **Q:** What is a build trigger?
+    **A:** A condition to automatically start a job (SCM polling, webhook, schedule).
+
+26. **Q:** What is Poll SCM?
+    **A:** Jenkins checks repository for changes periodically.
+
+27. **Q:** What is a webhook trigger?
+    **A:** Repo notifies Jenkins immediately when there’s a change.
+
+28. **Q:** What is a cron syntax in Jenkins?
+    **A:** A schedule format to run jobs (e.g., `H/15 * * * *` runs every 15 minutes).
+
+29. **Q:** How do you copy a Jenkins job?
+    **A:** Use "New Item" → Copy from existing job.
+
+30. **Q:** How do you disable a Jenkins job temporarily?
+    **A:** Open job → "Disable Project".
+
+---
+
+## 🔹 **Jenkins Pipelines**
+
+31. **Q:** Types of Jenkins pipelines?
+    **A:** Declarative and Scripted pipelines.
+
+32. **Q:** What is a Declarative pipeline?
+    **A:** Simple, structured syntax starting with `pipeline { }`.
+
+33. **Q:** What is a Scripted pipeline?
+    **A:** Groovy-based pipeline with full scripting flexibility.
+
+34. **Q:** Sample Declarative pipeline syntax?
+    **A:**
+
+```groovy
+pipeline {
+  agent any
+  stages {
+    stage('Build') {
+      steps {
+        echo 'Building...'
+      }
+    }
+  }
+}
+```
+
+35. **Q:** What is an agent in Jenkins pipeline?
+    **A:** The machine/node where the pipeline runs.
+
+36. **Q:** What are pipeline stages?
+    **A:** Logical sections like Build, Test, Deploy.
+
+37. **Q:** What are pipeline steps?
+    **A:** Individual tasks inside a stage (e.g., `sh`, `echo`).
+
+38. **Q:** What is `post` block in Jenkinsfile?
+    **A:** Defines actions after pipeline (success, failure, always).
+
+39. **Q:** What is Blue Ocean in Jenkins?
+    **A:** A modern UI for pipelines with visual representation.
+
+40. **Q:** How do you share pipeline libraries across projects?
+    **A:** Use Shared Libraries feature in Jenkins.
+
+---
+
+## 🔹 **Integration with Git & GitHub**
+
+41. **Q:** How do you integrate Jenkins with GitHub?
+    **A:** Install Git plugin, configure repo URL, and setup webhook.
+
+42. **Q:** How do you trigger Jenkins job on Git push?
+    **A:** Configure GitHub webhook to call Jenkins job URL.
+
+43. **Q:** How do you use `git` step in pipeline?
+    **A:**
+
+```groovy
+git branch: 'main', url: 'https://github.com/repo.git'
+```
+
+44. **Q:** What is Git Polling in Jenkins?
+    **A:** Jenkins checks repo for changes at regular intervals.
+
+45. **Q:** What is Multibranch pipeline job?
+    **A:** Automatically creates pipelines for all branches in repo.
+
+46. **Q:** How do you handle credentials for Git in Jenkins?
+    **A:** Store them in Jenkins Credentials Manager and reference in pipeline.
+
+47. **Q:** How do you clone private repo in Jenkins?
+    **A:** Use SSH keys or credentials stored in Jenkins.
+
+48. **Q:** How do you check out a specific tag in Jenkins pipeline?
+    **A:**
+
+```groovy
+checkout([$class: 'GitSCM', branches: [[name: 'refs/tags/v1.0']]])
+```
+
+49. **Q:** How do you checkout multiple repos in one pipeline?
+    **A:** Use `checkout` step multiple times with different URLs.
+
+50. **Q:** How do you show Git commit info in Jenkins build?
+    **A:** Use `git` environment variables like `GIT_COMMIT`.
+
+---
+
+## 🔹 **Jenkins and AWS**
+
+51. **Q:** How do you deploy to AWS using Jenkins?
+    **A:** Use AWS CLI or plugins like AWS CodeDeploy from pipeline.
+
+52. **Q:** How do you store AWS credentials securely?
+    **A:** Use Jenkins Credentials and refer in pipeline.
+
+53. **Q:** How do you trigger Jenkins from AWS CodeCommit?
+    **A:** Use CodeCommit webhook or CloudWatch event → Lambda → Jenkins.
+
+54. **Q:** How do you deploy a Docker image to ECR from Jenkins?
+    **A:** Login to ECR, build image, tag, and push from pipeline.
+
+55. **Q:** How do you deploy to ECS from Jenkins?
+    **A:** Use AWS CLI/SDK or ECS plugin in Jenkins pipeline.
+
+56. **Q:** How do you use Jenkins with CloudFormation?
+    **A:** Run `aws cloudformation deploy` command in pipeline stage.
+
+57. **Q:** How do you use Jenkins with Terraform?
+    **A:** Run `terraform init/plan/apply` steps inside pipeline.
+
+58. **Q:** How do you run Jenkins on EC2?
+    **A:** Install Jenkins on EC2 or use Docker container on EC2.
+
+59. **Q:** How do you enable Jenkins High Availability on AWS?
+    **A:** Run multiple Jenkins controllers behind ELB with shared storage (EFS).
+
+60. **Q:** How do you monitor Jenkins builds in CloudWatch?
+    **A:** Send build logs/metrics to CloudWatch using plugins.
+
+---
+
+## 🔹 **Jenkins Security**
+
+61. **Q:** How do you secure Jenkins?
+    **A:** Enable authentication, use RBAC, secure Jenkins URL (HTTPS).
+
+62. **Q:** What is Role-Based Access Control (RBAC)?
+    **A:** Restrict access to jobs/nodes based on user roles.
+
+63. **Q:** How do you enable authentication in Jenkins?
+    **A:** Configure Security Realm (Jenkins internal DB or LDAP).
+
+64. **Q:** How do you backup Jenkins?
+    **A:** Backup `JENKINS_HOME` directory regularly.
+
+65. **Q:** How do you restore Jenkins?
+    **A:** Restore `JENKINS_HOME` backup and restart service.
+
+66. **Q:** How do you manage secrets in Jenkins pipeline?
+    **A:** Use Jenkins Credentials and environment variables.
+
+67. **Q:** How do you rotate credentials in Jenkins?
+    **A:** Update them in Jenkins Credentials Manager and pipeline uses latest.
+
+68. **Q:** How do you audit Jenkins?
+    **A:** Use Audit Trail plugin to track user actions.
+
+69. **Q:** How do you disable anonymous access?
+    **A:** Manage Jenkins → Configure Global Security → Disable anonymous read.
+
+70. **Q:** How do you secure Jenkins agents?
+    **A:** Use encrypted communication (JNLP/SSH), disable unsecured agents.
+
+---
+
+## 🔹 **Jenkins Troubleshooting**
+
+71. **Q:** Jenkins is slow, what do you check?
+    **A:** JVM memory, disk space, plugin load, number of builds.
+
+72. **Q:** Build is failing due to permission denied, what to do?
+    **A:** Check workspace permissions and credentials used.
+
+73. **Q:** Jenkins UI not loading, how do you debug?
+    **A:** Check Jenkins logs (`/var/log/jenkins/jenkins.log`).
+
+74. **Q:** Build stuck in queue, what do you check?
+    **A:** Check available executors/nodes.
+
+75. **Q:** SCM polling not working, what to check?
+    **A:** Webhook configuration, Jenkins logs, credentials.
+
+76. **Q:** Jenkins disk usage is high, what to do?
+    **A:** Clean old builds, workspaces, and unused plugins.
+
+77. **Q:** Build failing due to missing plugin?
+    **A:** Install the plugin or update to correct version.
+
+78. **Q:** Jenkins crashes often, what to check?
+    **A:** JVM heap size, increase memory allocation.
+
+79. **Q:** Pipeline syntax error, how to debug?
+    **A:** Use Jenkins Pipeline Syntax Generator.
+
+80. **Q:** Jenkins job running twice, why?
+    **A:** Multiple triggers configured (SCM + webhook both enabled).
+
+---
+
+## 🔹 **Jenkins Best Practices**
+
+81. **Q:** How do you manage Jenkins plugins?
+    **A:** Keep minimal plugins, update regularly, test in staging.
+
+82. **Q:** How do you manage Jenkins configuration as code?
+    **A:** Use Jenkins Configuration as Code (JCasC) plugin.
+
+83. **Q:** How do you improve Jenkins performance?
+    **A:** Use distributed build agents, clean workspaces, allocate more memory.
+
+84. **Q:** Why use pipeline over freestyle jobs?
+    **A:** Pipeline as code is version-controlled, repeatable, and portable.
+
+85. **Q:** Why use shared libraries?
+    **A:** Avoid duplicating code across pipelines.
+
+86. **Q:** Why keep Jenkinsfile in Git repo?
+    **A:** Version control your pipeline, easy rollback.
+
+87. **Q:** Why parameterize jobs?
+    **A:** Reuse jobs for multiple environments.
+
+88. **Q:** Why use folders in Jenkins?
+    **A:** Organize jobs and manage permissions better.
+
+89. **Q:** Why use node labeling?
+    **A:** Run specific jobs on specific nodes.
+
+90. **Q:** Why use artifacts in Jenkins?
+    **A:** Store build outputs for later deployment or debugging.
+
+---
+
+## 🔹 **Miscellaneous**
+
+91. **Q:** What is Jenkins CLI?
+    **A:** Command-line tool to interact with Jenkins remotely.
+
+92. **Q:** What is Jenkins REST API?
+    **A:** API endpoints to trigger jobs, get build status programmatically.
+
+93. **Q:** What is Jenkins Shared Workspace?
+    **A:** Location where Jenkins jobs store files between builds.
+
+94. **Q:** What is Jenkins executor?
+    **A:** A slot where Jenkins runs a job.
+
+95. **Q:** How do you archive build artifacts?
+    **A:** Use `archiveArtifacts` step in pipeline.
+
+96. **Q:** How do you notify team after build?
+    **A:** Use Email-ext, Slack, or MS Teams plugin.
+
+97. **Q:** What is Jenkins node?
+    **A:** A machine where Jenkins runs jobs (Master/Agent).
+
+98. **Q:** What is Jenkins label?
+    **A:** Tag assigned to nodes to group them for job execution.
+
+99. **Q:** What is Jenkins master-agent architecture?
+    **A:** Master controls jobs, agents run builds on remote machines.
+
+100. **Q:** Can Jenkins be used for non-CI tasks?
+     **A:** Yes, for automation like backups, scripts, monitoring triggers.
+
