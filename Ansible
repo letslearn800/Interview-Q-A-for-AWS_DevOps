@@ -1,0 +1,370 @@
+## 🔹 **Ansible Basics**
+
+1. **Q:** What is Ansible?
+   **A:** Ansible is an open-source automation tool for configuration management, provisioning, and orchestration.
+
+2. **Q:** Who developed Ansible?
+   **A:** Michael DeHaan (later acquired by Red Hat).
+
+3. **Q:** Why use Ansible?
+   **A:** Simple, agentless, uses YAML, automates repetitive tasks.
+
+4. **Q:** What language does Ansible use?
+   **A:** YAML (Yet Another Markup Language) for Playbooks.
+
+5. **Q:** Is Ansible agent-based?
+   **A:** No, it’s agentless (uses SSH/WinRM).
+
+6. **Q:** What is the default port for Ansible?
+   **A:** Port 22 (SSH).
+
+7. **Q:** Difference between Ansible and Chef/Puppet?
+   **A:** Ansible is agentless, easier to set up, uses YAML instead of Ruby.
+
+8. **Q:** What OS does Ansible support?
+   **A:** Works on Linux/macOS as control node; can manage Linux/Windows.
+
+9. **Q:** What is idempotency in Ansible?
+   **A:** Running the same playbook multiple times gives the same result.
+
+10. **Q:** What are common use cases of Ansible?
+    **A:** Provisioning servers, configuring apps, patching, deploying code.
+
+---
+
+## 🔹 **Ansible Components**
+
+11. **Q:** What is an inventory in Ansible?
+    **A:** A list of target hosts to manage.
+
+12. **Q:** Types of inventory?
+    **A:** Static (INI/YAML file) and Dynamic (cloud plugins).
+
+13. **Q:** What is a playbook?
+    **A:** YAML file containing plays (tasks to execute).
+
+14. **Q:** What is a task in Ansible?
+    **A:** A single action performed on managed hosts.
+
+15. **Q:** What is a role in Ansible?
+    **A:** A structured way to organize tasks, handlers, templates, and variables.
+
+16. **Q:** What is a handler in Ansible?
+    **A:** Special tasks triggered by `notify`, usually for restarting services.
+
+17. **Q:** What are variables in Ansible?
+    **A:** Key-value pairs used to make playbooks dynamic.
+
+18. **Q:** What are facts in Ansible?
+    **A:** System information (OS, IP, memory) gathered from hosts.
+
+19. **Q:** What is Ansible Galaxy?
+    **A:** A repository for sharing Ansible roles.
+
+20. **Q:** What is a module in Ansible?
+    **A:** A reusable unit of code that performs a specific task (e.g., copy, yum).
+
+---
+
+## 🔹 **Ansible Installation & Setup**
+
+21. **Q:** How do you install Ansible on Linux?
+    **A:** `sudo apt install ansible` (Debian/Ubuntu) or `sudo yum install ansible` (RHEL/CentOS).
+
+22. **Q:** How do you check Ansible version?
+    **A:** `ansible --version`
+
+23. **Q:** Where is the default inventory file?
+    **A:** `/etc/ansible/hosts`
+
+24. **Q:** How do you ping all hosts in inventory?
+    **A:** `ansible all -m ping`
+
+25. **Q:** How do you run a one-liner command?
+    **A:** `ansible all -a "uptime"`
+
+26. **Q:** How do you specify a custom inventory?
+    **A:** `ansible-playbook -i custom_inventory playbook.yml`
+
+27. **Q:** How do you set up passwordless SSH for Ansible?
+    **A:** Generate SSH key (`ssh-keygen`) and copy to hosts (`ssh-copy-id`).
+
+28. **Q:** What is ansible.cfg file?
+    **A:** Configuration file for Ansible settings (inventory path, forks, etc.).
+
+29. **Q:** How do you override ansible.cfg?
+    **A:** Use `ANSIBLE_CONFIG` environment variable or pass `-e`.
+
+30. **Q:** How do you use Ansible with Python virtual environment?
+    **A:** Install with `pip install ansible` inside venv.
+
+---
+
+## 🔹 **Ansible Playbooks**
+
+31. **Q:** How do you create a playbook?
+    **A:** Write tasks in YAML under `hosts` and `tasks` section.
+
+32. **Q:** Simple playbook example?
+    **A:**
+
+```yaml
+- hosts: all
+  tasks:
+    - name: Install Apache
+      yum:
+        name: httpd
+        state: present
+```
+
+33. **Q:** How do you run a playbook?
+    **A:** `ansible-playbook playbook.yml`
+
+34. **Q:** How do you run a playbook on a specific host?
+    **A:** `ansible-playbook -l hostname playbook.yml`
+
+35. **Q:** How do you use variables in playbooks?
+    **A:**
+
+```yaml
+vars:
+  package_name: httpd
+tasks:
+  - yum:
+      name: "{{ package_name }}"
+```
+
+36. **Q:** What is `with_items` in Ansible?
+    **A:** Used for loops.
+
+```yaml
+with_items:
+  - nginx
+  - httpd
+```
+
+37. **Q:** What is `when` in Ansible?
+    **A:** Conditional execution.
+
+```yaml
+when: ansible_os_family == "RedHat"
+```
+
+38. **Q:** What is `register` in Ansible?
+    **A:** Stores output of a task in a variable.
+
+39. **Q:** What is `ignore_errors`?
+    **A:** Allows playbook to continue even if task fails.
+
+40. **Q:** How do you run playbook in check mode?
+    **A:** `ansible-playbook playbook.yml --check`
+
+---
+
+## 🔹 **Ansible Roles**
+
+41. **Q:** Why use roles in Ansible?
+    **A:** To organize playbooks and reuse code.
+
+42. **Q:** Command to create a role?
+    **A:** `ansible-galaxy init myrole`
+
+43. **Q:** What is the default folder structure of a role?
+    **A:** `tasks/`, `handlers/`, `templates/`, `vars/`, `defaults/`, `meta/`
+
+44. **Q:** How do you call a role in playbook?
+    **A:**
+
+```yaml
+roles:
+  - myrole
+```
+
+45. **Q:** What is `defaults/main.yml`?
+    **A:** File containing default variables for a role.
+
+46. **Q:** What is `handlers/main.yml`?
+    **A:** File containing handlers (e.g., restart services).
+
+47. **Q:** What is `meta/main.yml`?
+    **A:** Defines role dependencies.
+
+48. **Q:** Can roles use other roles?
+    **A:** Yes, using dependencies in `meta/main.yml`.
+
+49. **Q:** How do you download roles from Galaxy?
+    **A:** `ansible-galaxy install role_name`
+
+50. **Q:** Can we version roles in Galaxy?
+    **A:** Yes, specify version during install.
+
+---
+
+## 🔹 **Ansible Inventory & Variables**
+
+51. **Q:** What are inventory groups?
+    **A:** Grouping of hosts for targeting (e.g., `[webservers]`).
+
+52. **Q:** How do you define host variables?
+    **A:** Use `host_vars/hostname.yml`.
+
+53. **Q:** How do you define group variables?
+    **A:** Use `group_vars/groupname.yml`.
+
+54. **Q:** What is `vars_files` in playbook?
+    **A:** Loads variables from external YAML file.
+
+55. **Q:** What is `extra-vars` in Ansible?
+    **A:** Pass variables at runtime with `-e key=value`.
+
+56. **Q:** What is variable precedence in Ansible?
+    **A:** Extra-vars > task vars > play vars > role vars > defaults.
+
+57. **Q:** How do you encrypt variables?
+    **A:** Use `ansible-vault encrypt`.
+
+58. **Q:** How do you decrypt files?
+    **A:** `ansible-vault decrypt filename.yml`
+
+59. **Q:** How do you run playbook with vault password?
+    **A:** `ansible-playbook playbook.yml --ask-vault-pass`
+
+60. **Q:** How do you change vault password?
+    **A:** `ansible-vault rekey filename.yml`
+
+---
+
+## 🔹 **Ansible Modules**
+
+61. **Q:** What is `copy` module used for?
+    **A:** Copies files from control node to target node.
+
+62. **Q:** What is `template` module?
+    **A:** Deploys Jinja2 template files with variables.
+
+63. **Q:** What is `yum` module?
+    **A:** Installs/removes packages on RHEL-based systems.
+
+64. **Q:** What is `apt` module?
+    **A:** Installs/removes packages on Debian/Ubuntu systems.
+
+65. **Q:** What is `service` module?
+    **A:** Manages services (start/stop/restart).
+
+66. **Q:** What is `lineinfile` module?
+    **A:** Ensures a specific line is present in a file.
+
+67. **Q:** What is `user` module?
+    **A:** Creates/manages users.
+
+68. **Q:** What is `debug` module?
+    **A:** Prints variables and messages.
+
+69. **Q:** What is `shell` vs `command` module?
+    **A:** `shell` runs through a shell (supports pipes), `command` runs binary directly.
+
+70. **Q:** What is `get_url` module?
+    **A:** Downloads files from a URL.
+
+---
+
+## 🔹 **Ansible with AWS**
+
+71. **Q:** How do you use Ansible with AWS?
+    **A:** Install `boto3` library, use AWS modules like `ec2`, `s3`.
+
+72. **Q:** How do you create EC2 instance with Ansible?
+    **A:** Use `amazon.aws.ec2_instance` module.
+
+73. **Q:** How do you create S3 bucket with Ansible?
+    **A:** Use `amazon.aws.s3_bucket` module.
+
+74. **Q:** How do you manage security groups with Ansible?
+    **A:** Use `amazon.aws.ec2_group` module.
+
+75. **Q:** How do you fetch dynamic inventory from AWS?
+    **A:** Use AWS dynamic inventory plugin.
+
+76. **Q:** How do you store AWS credentials securely?
+    **A:** Use Ansible Vault or environment variables.
+
+77. **Q:** How do you tag AWS resources with Ansible?
+    **A:** Use `tags` parameter in AWS modules.
+
+78. **Q:** How do you deploy Docker container to EC2 with Ansible?
+    **A:** Use `community.docker.docker_container` module.
+
+79. **Q:** How do you automate EBS volume attachment?
+    **A:** Use `amazon.aws.ec2_vol` module.
+
+80. **Q:** How do you integrate Ansible with Terraform outputs?
+    **A:** Use `terraform output -json` and pass variables to Ansible.
+
+---
+
+## 🔹 **Troubleshooting & Best Practices**
+
+81. **Q:** How do you test Ansible playbooks locally?
+    **A:** Use `ansible-playbook --check` or Molecule.
+
+82. **Q:** How do you limit playbook to specific hosts?
+    **A:** `-l` (limit) flag.
+
+83. **Q:** How do you increase playbook speed?
+    **A:** Use `forks` in ansible.cfg, async tasks.
+
+84. **Q:** What is `serial` in playbook?
+    **A:** Runs playbook on limited hosts in batches.
+
+85. **Q:** How do you skip certain tasks?
+    **A:** Use `--skip-tags`.
+
+86. **Q:** How do you debug playbook errors?
+    **A:** `-vvv` verbosity flag.
+
+87. **Q:** Why use roles instead of big playbooks?
+    **A:** Better organization, reusability, maintainability.
+
+88. **Q:** Why use tags?
+    **A:** To run only specific tasks without running entire playbook.
+
+89. **Q:** Why use Ansible Vault?
+    **A:** To secure sensitive data (passwords, keys).
+
+90. **Q:** Why use dynamic inventory?
+    **A:** To auto-discover cloud resources instead of hardcoding.
+
+---
+
+## 🔹 **Miscellaneous**
+
+91. **Q:** What is Ansible Pull mode?
+    **A:** Hosts pull playbooks from control node (good for scale).
+
+92. **Q:** Can Ansible run on Windows?
+    **A:** Control node must be Linux/macOS, but it can manage Windows hosts.
+
+93. **Q:** What is Jinja2 in Ansible?
+    **A:** Templating engine used for dynamic files.
+
+94. **Q:** How do you check syntax of playbook?
+    **A:** `ansible-playbook playbook.yml --syntax-check`
+
+95. **Q:** How do you run only failed tasks again?
+    **A:** `--limit @/path/to/last_failed.retry`
+
+96. **Q:** Can Ansible manage network devices?
+    **A:** Yes, using network modules (Cisco, Juniper, etc.).
+
+97. **Q:** How do you share playbooks with team?
+    **A:** Store in Git repo.
+
+98. **Q:** How do you use Ansible for patching?
+    **A:** Write playbooks with `yum/apt` modules and run on all hosts.
+
+99. **Q:** How do you use Ansible for compliance?
+    **A:** Ensure system state (firewall rules, users, permissions) with playbooks.
+
+100. **Q:** Can Ansible be used in CI/CD pipelines?
+     **A:** Yes, integrate with Jenkins, GitHub Actions, or AWS CodePipeline.
+
