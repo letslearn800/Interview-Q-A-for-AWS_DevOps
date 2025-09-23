@@ -1,0 +1,173 @@
+
+### **IAM, Roles, and Policies**
+
+**Q1:** What is the role of IAM roles and policies?
+**A:** IAM roles are like **temporary identities** for AWS services or users to access resources. Policies define **what permissions** a role or user has. Roles let you **grant access without sharing credentials**.
+
+**Q2:** How do you attach policies to IAM users, individually or by group?
+**A:** You can attach policies directly to a user or attach them to a group that the user belongs to. Groups are easier to manage if multiple users need the same permissions.
+
+---
+
+### **Terraform**
+
+**Q3:** Explain Terraform plan and its purpose.
+**A:** `terraform plan` shows **what changes Terraform will make** to your infrastructure before applying them. It helps prevent mistakes by letting you review changes.
+
+**Q4:** Why did you choose Terraform over Boto3 for infrastructure provisioning?
+**A:** Terraform is **declarative** (you write the desired state), works across multiple cloud providers, is **easier to version control**, and handles dependencies automatically. Boto3 is **imperative** (you write scripts to do actions) and requires more manual work.
+
+**Q5:** Where do you run Terraform code – remotely or locally?
+**A:** You can run it locally for testing or use **remote backends** like S3 + DynamoDB to store state for team collaboration.
+
+**Q6:** What are Terraform modules and have you used them?
+**A:** Modules are **reusable blocks of Terraform code**. They help organize and reuse resources, like creating standard VPCs or EC2 setups.
+
+---
+
+### **AWS Lambda**
+
+**Q7:** What is AWS Lambda and how does it work?
+**A:** AWS Lambda is a **serverless compute service** that runs code automatically without managing servers. You just upload your code, set triggers, and Lambda executes it.
+
+**Q8:** How do you invoke a Lambda function and where do you configure it?
+**A:** Lambda can be invoked via **API Gateway, S3 events, CloudWatch events, SNS, or direct SDK calls**. Configuration is done in the **Lambda console or via IaC like Terraform**.
+
+**Q9:** How do Lambda handlers handle scaling and event-based invocations?
+**A:** AWS automatically **scales Lambda functions horizontally** based on the number of events. Each event triggers a new execution in isolation.
+
+**Q10:** What is the maximum runtime for Lambda functions?
+**A:** **15 minutes per invocation**.
+
+**Q11:** What is the maximum memory size for Lambda functions?
+**A:** **10 GB**.
+
+**Q12:** How can you increase the runtime for Lambda functions?
+**A:** You **cannot extend beyond 15 minutes**. For longer tasks, use **Step Functions** or break the task into smaller Lambdas.
+
+**Q13:** What modules have you used in your Lambda functions?
+**A:** Common modules include **boto3** (AWS SDK for Python), logging, JSON parsing, or custom utility modules.
+
+**Q14:** What automations have you performed using Lambda in your project?
+**A:** Examples: auto-scaling alerts, file processing from S3, sending notifications via SNS, or cleaning up old resources.
+
+**Q15:** Where do you write and save your Lambda function code?
+**A:** Code can be uploaded directly in **AWS Lambda console**, via **ZIP file**, or managed via **Git repository and CI/CD pipelines**.
+
+---
+
+### **CloudWatch & Monitoring**
+
+**Q16:** What is Amazon CloudWatch and have you configured custom metrics?
+**A:** CloudWatch monitors AWS resources and applications. You can create **custom metrics** for application-specific measurements like API response time.
+
+**Q17:** What metrics are available on your CloudWatch dashboard?
+**A:** EC2 CPU, memory, disk, network; RDS connections and latency; Lambda invocations, duration, errors; S3 requests, etc.
+
+**Q18:** How do you configure CPU utilization on CloudWatch dashboard?
+**A:** Add **CPUUtilization metric** from EC2 instances to the dashboard and set thresholds for alarms.
+
+---
+
+### **S3 & Security**
+
+**Q19:** How do you attach an SSL certificate to an S3 bucket?
+**A:** S3 itself doesn’t use SSL directly. Use **CloudFront in front of S3** and attach an **ACM SSL certificate** to CloudFront for HTTPS access.
+
+**Q20:** What types of encryption have you implemented in your projects?
+**A:** S3 SSE-S3, SSE-KMS, RDS encryption, EBS encryption, and transit encryption using TLS.
+
+**Q21:** If an S3 bucket has a read-only policy, can you modify objects?
+**A:** **No**, read-only permission allows only viewing or downloading, not uploading or deleting objects.
+
+**Q22:** What is a Content Delivery Network (CDN) and how does it work?
+**A:** CDN (like CloudFront) **caches content at edge locations** worldwide so users get faster access and lower latency.
+
+---
+
+### **Jenkins & Groovy**
+
+**Q23:** Have you created a Jenkins pipeline for your project?
+**A:** Yes, pipelines automate build, test, and deployment using **Declarative or Scripted pipelines** in Jenkins.
+
+**Q24:** What is Groovy and how is it used in Jenkins?
+**A:** Groovy is a **scripting language** used to write Jenkins pipelines (Jenkinsfile) for automation.
+
+**Q25:** Why do you use Groovy in Jenkins and where do you save the Jenkinsfile?
+**A:** Groovy allows **dynamic scripting and logic** in pipelines. Jenkinsfile is usually saved in the **project’s Git repository**.
+
+---
+
+### **Deployment & Scaling**
+
+**Q26:** What type of deployment strategy are you using in your project?
+**A:** Examples: Blue/Green deployment, Rolling deployment, Canary deployment, or Immutable deployment.
+
+**Q27:** How does an Elastic Load Balancer distribute traffic?
+**A:** ELB routes incoming requests across **multiple healthy instances** based on round-robin, least connections, or IP hash.
+
+**Q28:** What is Auto Scaling and how does it work?
+**A:** Auto Scaling **automatically adds or removes instances** based on metrics like CPU, network, or custom CloudWatch metrics.
+
+**Q29:** Can you describe different types of load balancers?
+**A:**
+
+* **ALB (Application Load Balancer):** Layer 7, supports HTTP/HTTPS and path-based routing.
+* **NLB (Network Load Balancer):** Layer 4, handles TCP traffic with ultra-low latency.
+* **CLB (Classic Load Balancer):** Legacy, basic L4/L7 routing.
+
+**Q30:** If you have exhausted IP addresses in your VPC, how would you provision new resources?
+**A:** Create a **new subnet** in the VPC or extend the existing CIDR block.
+
+---
+
+### **AMI & EC2**
+
+**Q31:** Have you used any tools to create customized Amazon Machine Images (AMI)?
+**A:** Yes, tools like **Packer** or manually by configuring an EC2 instance and creating an AMI.
+
+---
+
+### **Connection Draining**
+
+**Q32:** What is connection draining and how does it work?
+**A:** It allows **existing connections to complete** before terminating instances during ELB scale-in or replacement.
+
+---
+
+### **AWS Access Keys**
+
+**Q33:** What is the purpose of access keys and secret access keys in AWS?
+**A:** They are used for **programmatic access** to AWS services via CLI, SDKs, or APIs.
+
+---
+
+### **Multiple Environments & Accounts**
+
+**Q34:** What environments have you set up for your projects?
+**A:** Commonly: **Dev, Test, Staging, Production**.
+
+**Q35:** Do you use the same AWS account for all environments?
+**A:** Usually, **separate accounts** are used for isolation and security.
+
+**Q36:** Do you have separate Jenkins servers for each environment?
+**A:** Depends on project, but often **one Jenkins server** manages multiple environments using separate pipelines or folders.
+
+---
+
+### **Summary of Lambda, Terraform, and Policies**
+
+**Q37:** What modules have you used in Lambda functions?
+**A:** AWS SDK (boto3), logging, JSON, and custom utility modules.
+
+**Q38:** Have you created an SNS topic for your project?
+**A:** Yes, for sending notifications to teams, triggered by events like S3 upload or CloudWatch alarms.
+
+**Q39:** Why did you choose Terraform over Boto3 for infrastructure provisioning?
+**A:** Terraform is **declarative, reusable, version-controlled**, and handles **dependencies automatically**, while Boto3 is **imperative and code-heavy**.
+
+**Q40:** What is “Ancient” and what is its purpose?
+**A:** I think this refers to **Ansible**, which automates configuration management and deployments.
+
+**Q41:** What language do you use in Ansible?
+**A:** YAML.
